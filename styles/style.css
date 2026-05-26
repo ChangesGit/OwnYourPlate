@@ -42,7 +42,7 @@ body {
 main {
     margin-left: 10%;
     margin-right: 10%;
-    margin-bottom: 320px;
+    margin-bottom: 75px;
 }
 
 .soft-shadow {
@@ -115,7 +115,8 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    justify-self: flex-start;
+    justify-self: center;
+    align-self: center;
     margin: 0;
     height: 50px;
     width: 80px;
@@ -135,7 +136,8 @@ header {
         display: block;
         margin: auto;
         margin-top: 10px;
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        width: 150px;
     }
     & > div {
         justify-self: flex-end;
@@ -149,6 +151,46 @@ header {
     & .header-icon-right {
         margin-right: 15px;
     }
+}
+
+footer {
+    background-color: #9FC48E;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    & .mobile-logo {
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 150px;
+    }
+
+    & nav ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin: 0;
+        padding-inline-start: 0px;
+        & div:nth-of-type(1) { /*nth et pas first pour scalabilité*/
+            margin-left: 15px;
+        }
+        & div:nth-of-type(2) {
+            justify-self: flex-end;
+            text-align: end;
+            margin-right : 15px;
+        }
+
+        & li {
+            margin-bottom: 5px;
+        }
+
+    }
+
+    & a {
+        text-decoration: none;
+        color: black;
+    }
+
 }
 
 body {
@@ -224,9 +266,6 @@ form button[type = "reset"] {
     display: flex;
     flex-direction: column;
     text-align: center;
-    & > .number-box{
-        margin: auto;
-    }
 }
 
 .box-bar {
