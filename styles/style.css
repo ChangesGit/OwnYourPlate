@@ -135,8 +135,21 @@ header {
         display: block;
         margin: auto;
     }
-    & :nth-child(3) {
-        
+    & > div {
+        display: flex;
+    }
+    & > div:nth-of-type(2) {
+        justify-content: flex-end;
+    }
+
+    & .header-icon-left {
+        display: block;
+        align-self: center;
+        margin-left: 20px
+    }
+    & .header-icon-right {
+        align-self: center;
+        margin-right: 20px;
     }
 }
 
