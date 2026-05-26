@@ -84,13 +84,18 @@ main {
 .name-img-flex {
     display: flex;
     text-align: center;
+    & > h3 {
+        margin-block-start: 0em; /*Ordre*/
+        margin-left: 10px;
+        margin-top: 10px;
+    }
 }
 
 #search-results {
     margin:auto;
     margin-top: 32px;
     height: 360px;
-    padding: 10px;
+    padding: 15px;
     & + button {
         margin-top: 20px;
         justify-self: right;
