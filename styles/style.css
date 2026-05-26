@@ -134,22 +134,20 @@ header {
     & .mobile-logo {  
         display: block;
         margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px
     }
     & > div {
-        display: flex;
+        justify-self: flex-end;
     }
-    & > div:nth-of-type(2) {
-        justify-content: flex-end;
-    }
-
-    & .header-icon-left {
-        display: block;
+    & :nth-child(n) {
         align-self: center;
-        margin-left: 20px
+    }
+    & .header-icon-left {
+        margin-left: 15px;
     }
     & .header-icon-right {
-        align-self: center;
-        margin-right: 20px;
+        margin-right: 15px;
     }
 }
 
