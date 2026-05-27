@@ -8,7 +8,28 @@
 </head>
 <body>
     <header>
-            <img class = "header-icon header-icon-left" src="./assets/images/burger-menu.svg" alt="Icône menu burger">
+        <div id = "burger-menu">
+            <button id = "menu-toggle"><img src="./assets/images/burger-menu.svg" alt="Navigation button"></button>
+            <nav class = "soft-shadow">
+                <ul>
+                    <a href="./index.html">
+                        <li>Accueil</li>
+                    </a>
+                    <a href="./recipes.html">
+                        <li>Mes Recettes</li>
+                    </a>
+                    <a href="">
+                        <li>Mes Aliments</li>
+                    </a>
+                    <a href="">
+                        <li>Mes Journées</li>
+                    </a>
+                    <a href="">
+                        <li>Nous Contacter</li>
+                    </a>
+                </ul>
+            </nav>
+        </div>
         <img class = "mobile-logo" src="./assets/images/mobile-logo.png" alt="Logo OwnYourPlate">
         <div>
             <img class = "header-icon" src="./assets/images/language-icon.svg" alt="Icône langue">
@@ -37,14 +58,28 @@
                     <img src="./assets/images/skyr-1.png" alt="Image d'un produit">
                     <h3>Skyr Nature 0% - Yoplait - 850g</h3>
                 </div>
-                <div class = "text-number">
-                    <p>Calories/100g : </p>
-                    <div class = "number-box soft-border">
-                        <p>226 kJ</p>
-                        <p>57 kCal</p>
+                <div class = "result-nutri">
+                    <div class = "text-number">
+                        <p>Calories/100g : </p>
+                        <div class = "number-box soft-border">
+                            <p>226 kJ</p>
+                            <p>57 kCal</p>
+                        </div>
+                    </div>
+                    <div class = "text-number mobile-hidden-flex">
+                        <p>Protéines/100g : </p>
+                        <div class = "number-box soft-border">
+                            <p>9.5g</p>
+                        </div>
+                    </div>
+                    <div class = "text-number mobile-hidden-flex">
+                        <p>Glucides/100g : </p>
+                        <div class = "number-box soft-border">
+                            <p>3.6g</p>
+                        </div>
                     </div>
                 </div>
-                <div>
+                    <div>
                     <p>...</p>
                     <button class = "small-button soft-border soft-shadow">Ajouter</button>
                 </div>
@@ -90,10 +125,30 @@
                             <p>3.6 g</p>
                         </div>
                     </div>
-                    <div class = "item-infos-grid-element">
-                        <p>Matières grasses</p>
+                    <div>
+                        <div class = "item-infos-grid-element">
+                            <p>Matières grasses</p>
+                            <div class = "number-box soft-border">
+                                <p>0.105 g</p>
+                            </div>
+                        </div>
+                        <div class = "item-infos-grid-element mobile-hidden-flex">
+                            <p>Dont Acides Gras Saturés</p>
+                            <div class = "number-box soft-border">
+                                <p>0.105 g</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element mobile-hidden-flex">
+                        <p>Fibres</p>
                         <div class = "number-box soft-border">
-                            <p>0.105 g</p>
+                            <p>0 g</p>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element mobile-hidden-flex">
+                        <p>Sel</p>
+                        <div class = "number-box soft-border">
+                            <p>0.135 g</p>
                         </div>
                     </div>
                 </div>
@@ -185,5 +240,6 @@
         </nav>
     </footer>
     
+    <script src="./scripts/main.js"></script>
 </body>
 </html>

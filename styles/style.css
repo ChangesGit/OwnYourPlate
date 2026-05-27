@@ -16,6 +16,7 @@
 :root {
     --button-color: #FDCED9;
     --box-background-color: white;
+    --text-color: black;
 }
 
 h1 {
@@ -49,6 +50,7 @@ main {
 
 .soft-shadow {
     box-shadow: 4px 4px 4px rgba(0, 0, 0,0.25);
+    border-radius: 10px;
 }
 
 .soft-border {
@@ -145,9 +147,11 @@ header {
         margin-top: 10px;
         margin-bottom: 10px;
         width: 150px;
+        grid-column: 2;
     }
-    & > div {
+    & > div:not(#burger-menu) {
         justify-self: flex-end;
+        grid-column: 3;
     }
     & :nth-child(n) {
         align-self: center;
@@ -159,6 +163,46 @@ header {
         margin-right: 15px;
     }
 }
+
+#burger-menu {
+    display: block;
+    margin-left: 15px;
+    position: fixed;
+    top: 40px;
+    & nav {
+        display: none;
+    }
+    & ul {
+        margin-top: 0;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+        list-style: none;
+        background-color: #FFFFFA;
+        & li {
+            margin: 0;
+            border-bottom: 1px solid black;
+            margin-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        & a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        & a:last-of-type > li {
+            border-bottom: none;
+        }
+    }
+
+    & button {
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+    }
+}
+
 
 footer {
     background-color: #9FC48E;
@@ -230,7 +274,7 @@ form button[type = "reset"] {
 #pending-food-box {
     margin:auto;
     margin-top: 50px;
-    padding: 10px;
+    padding: 15px;
     padding-bottom: 20px;
 }
 
@@ -370,4 +414,40 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
     -webkit-text-fill-color: black;
     transition: background-color 5000s ease-in-out 0s;
     box-shadow: inset 0 0 20px 20px var(--box-background-color);
+}
+
+.mobile-hidden-flex {
+    display: none;
+}
+
+.result-nutri {
+    display: flex;
+    gap: 20px ;
+}
+
+@media screen and (min-width: 768px) { /*Breakpoint Tablette*/
+    
+}
+
+@media screen and (min-width: 1024px) { /*Breakpoint desktop*/
+    main {
+        width: 700px;
+    }
+
+    .mobile-hidden-flex {
+        display: flex;
+    }
+
+    .item-infos-grid {
+        display: flex;
+        gap: 10px;
+    }
+
+    .item-infos-grid-element {
+        width: 90px;
+    }
+
+    p {
+        height: 16px;
+    }
 }
