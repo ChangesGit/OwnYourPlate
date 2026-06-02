@@ -1,5 +1,7 @@
 let products = [];
 
+let totalProducts = [];
+
 let alreadyAddedSearch = [];
 let alreadyAddedPending = [];
 const searchResultBox = document.getElementById('search-results');
@@ -44,18 +46,12 @@ let searchResults = [];
 
 searchBar.addEventListener('input', () => {
     searchResultBox.innerHTML = "";
-    console.log(searchBar.value)
-
     products.forEach(product => {
         let matches = false;
         for(let i = 0; i < product.keywords.length; i++) {
             if (product.keywords[i].includes(searchBar.value) && !searchResults.includes(product)) {
                 matches = true;
             }
-            // if(!product.keywords[i].includes(searchBar.value) && searchResults.some(e => e.name === product.name)) {
-            //     const index = searchResults.findIndex(e => e.name === product.name);
-            //     searchResults.splice(index,1);
-            // }
         }
         if(matches) {
             searchResults.push(product);
@@ -85,9 +81,9 @@ searchResultBox.addEventListener('click', (e) => {
     if(target.matches(".small-button")) {
         let productName = target.getAttribute("data-product-name");
         let index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
-        console.log(productName, index);
         let product = products[index];
-        console.log(product.imgUrl)
-    placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt)
+        totalProducts.push(product);
+        placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt)
+        totalDisplay(totalProducts);
     }
 })

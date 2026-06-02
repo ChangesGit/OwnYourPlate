@@ -30,7 +30,7 @@
         <button class = "soft-border soft-shadow large-button" type = "POST">Aliments Personnalisés</button>
 
         <section id = "pending-food-box" class = "soft-border soft-shadow content-box"> <!--Aliments choisis-->
-
+    
             <div class = "pending-food-box-buttons">
                 <div>
                     <button class="small-button soft-border soft-shadow">Retour</button>
@@ -45,7 +45,7 @@
             <div class = "text-number">
                 <p>Poids total : </p>
                 <div class = "number-box soft-border">
-                    <p>560 g</p>
+                    <p id = "total-mass">0 g</p>
                 </div>
             </div>
             <h3>Caractéristiques nutritives :</h3>
@@ -55,46 +55,46 @@
                 <div class = "item-infos-grid-element">
                     <p>Calories</p>
                     <div class = "number-box soft-border">
-                        <p>226 kJ</p>
-                        <p>57 kCal</p>
+                        <p id = "total-kj">0 kJ</p>
+                        <p id = "total-kcal">0 kCal</p>
                     </div>
                 </div>
                 <div class = "item-infos-grid-element">
                     <p>Protéines</p>
                     <div class = "number-box soft-border">
-                        <p>9.5 g</p>
+                        <p id = "total-proteins">0 g</p>
                     </div>
                 </div>
                 <div class = "item-infos-grid-element">
                     <p>Glucides</p>
                     <div class = "number-box soft-border">
-                        <p>3.6 g</p>
+                        <p id = "total-carbs">0 g</p>
                     </div>
                 </div>
                 <div class = "item-infos-grid-element">
                     <p>Fibres</p>
                     <div class = "number-box soft-border">
-                        <p>0 g</p>
+                        <p id = "total-fibers">0 g</p>
                     </div>
                 </div>
                 <div>
                     <div class = "item-infos-grid-element">
                         <p>Matières grasses</p>
                         <div class = "number-box soft-border">
-                            <p>0.105 g</p>
+                            <p id = "total-fat">0 g</p>
                         </div>
                     </div>
                     <div class = "item-infos-grid-element">
                         <p>Dont Acides gras saturés</p>
                         <div class = "number-box soft-border">
-                            <p>0.065 g</p>
+                            <p id = "total-saturated-fat">0 g</p>
                         </div>
                     </div>
                 </div>
                 <div class = "item-infos-grid-element">
                     <p>Sel</p>
                     <div class = "number-box soft-border">
-                        <p>0.135 g</p>
+                        <p id = "total-salt">0 g</p>
                     </div>
                 </div>
             </div>
