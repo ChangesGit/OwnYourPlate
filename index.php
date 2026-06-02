@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+    <?php require_once(__DIR__.'/header.php'); ?>
+    <main>
+        <h1>Approprie toi ton assiette !</h1>
+        <hr> <!--barre de séparation-->
+        <section> <!--Barre de recherche-->
+            <form action="" method = "POST">
+                <div id = "search-bar" class = "soft-shadow">
+                    <div>
+                        <img class = "icon-img" src="./assets/images/search-icon.svg" alt="Search Icon">
+                    </div>
+                    <input type="search" name = "searchBar" id = "searchBar" placeholder="Rechercher">
+                </div>
+                <button class = "small-button soft-shadow soft-border" type = "submit">Rechercher</button>
+                <button class = "small-button soft-shadow soft-border" type = "reset">Effacer</button>
+            </form>
+        </section>
+
+        <section id = "search-results" class ="soft-shadow soft-border content-box"> <!--Résultat recherche-->
+
+        </section>
+        <button class = "soft-border soft-shadow large-button" type = "POST">Aliments Personnalisés</button>
+
+        <section id = "pending-food-box" class = "soft-border soft-shadow content-box"> <!--Aliments choisis-->
+
+            <div class = "pending-food-box-buttons">
+                <div>
+                    <button class="small-button soft-border soft-shadow">Retour</button>
+                    <button class="small-button soft-border soft-shadow">Effacer</button>
+                </div>
+                <button class = "large-button soft-border soft-shadow">Enregistrer recette</button>
+            </div>
+        </section>
+
+        <section class = "summary-box soft-border soft-shadow content-box"> <!--Total Nutritionnel-->
+            <h2>Total :</h2>
+            <div class = "text-number">
+                <p>Poids total : </p>
+                <div class = "number-box soft-border">
+                    <p>560 g</p>
+                </div>
+            </div>
+            <h3>Caractéristiques nutritives :</h3>
+
+            <div class="item-infos-grid">
+
+                <div class = "item-infos-grid-element">
+                    <p>Calories</p>
+                    <div class = "number-box soft-border">
+                        <p>226 kJ</p>
+                        <p>57 kCal</p>
+                    </div>
+                </div>
+                <div class = "item-infos-grid-element">
+                    <p>Protéines</p>
+                    <div class = "number-box soft-border">
+                        <p>9.5 g</p>
+                    </div>
+                </div>
+                <div class = "item-infos-grid-element">
+                    <p>Glucides</p>
+                    <div class = "number-box soft-border">
+                        <p>3.6 g</p>
+                    </div>
+                </div>
+                <div class = "item-infos-grid-element">
+                    <p>Fibres</p>
+                    <div class = "number-box soft-border">
+                        <p>0 g</p>
+                    </div>
+                </div>
+                <div>
+                    <div class = "item-infos-grid-element">
+                        <p>Matières grasses</p>
+                        <div class = "number-box soft-border">
+                            <p>0.105 g</p>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element">
+                        <p>Dont Acides gras saturés</p>
+                        <div class = "number-box soft-border">
+                            <p>0.065 g</p>
+                        </div>
+                    </div>
+                </div>
+                <div class = "item-infos-grid-element">
+                    <p>Sel</p>
+                    <div class = "number-box soft-border">
+                        <p>0.135 g</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <?php require_once(__DIR__.'/footer.php'); ?>
+    <script src = "./scripts/variables.js"></script>
+    <script src = "./scripts/functions.js"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>
