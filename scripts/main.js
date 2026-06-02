@@ -4,6 +4,10 @@ let alreadyAddedSearch = [];
 let alreadyAddedPending = [];
 const searchResultBox = document.getElementById('search-results');
 
+let addButton = document.querySelectorAll('.result-product .small-button');
+
+
+
 async function loadProducts() {
   try {
     const response = await fetch("./scripts/products.json");
@@ -30,17 +34,6 @@ burgerMenuButton.addEventListener('click', () => {
     }
 
 })
-
-let imgURL = "./assets/images/skyr-1.png"
-let imgAlt = "image test"
-let articleName = "test";
-let articleKJ = "test";
-let articleKCal = "test"
-let articleProteins = "test";
-let articleCarbs = "test";
-
-// placeArticleSearchResult(imgURL, imgAlt, articleName, articleKJ, articleKCal, articleProteins, articleCarbs);
-placeArticlePending(imgURL, imgAlt, articleName, articleKJ, articleKCal, articleProteins, articleCarbs)
 
 
 const searchBar = document.getElementById('searchBar');
@@ -86,3 +79,15 @@ searchBar.addEventListener('input', () => {
     alreadyAddedSearch = [];
 })
 
+
+searchResultBox.addEventListener('click', (e) => {
+    let target = e.target;
+    if(target.matches(".small-button")) {
+        let productName = target.getAttribute("data-product-name");
+        let index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
+        console.log(productName, index);
+        let product = products[index];
+        console.log(product.imgUrl)
+    placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt)
+    }
+})

@@ -30,7 +30,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 </div>
                     <div>
                     <p>...</p>
-                    <button class = "small-button soft-border soft-shadow">Ajouter</button>
+                    <button class = "small-button soft-border soft-shadow" data-product-name = "${name}">Ajouter </button>
                 </div>
                 <hr class = "box-bar">
             </article>`
