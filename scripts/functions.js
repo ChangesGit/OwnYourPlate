@@ -40,7 +40,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
 
 function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt) { //TODO : Rajouter une variable "quantité"
     const pendingBox = document.getElementById('pending-food-box');    
-    let pendingArticleTemplate = `<article class = "pending-food-item"> <!--Aliment-->
+    let pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                     <div class = "name-img-flex">
                         <img src=${imgUrl} alt="${imgAlt}">
                         <h3>${name}</h3>
@@ -48,13 +48,13 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
                     <div class = "text-button-flex">
                         <p>Quantité (g) : </p>
                         <div>
-                            <button class = "amount-button">-</button> <!--Signe moins-->
+                            <button class = "amount-button" data-product-name = "${name}">-</button> <!--Signe moins-->
                             <div class = "number-box soft-border">
                                 <p>100 g</p>
                             </div>
-                            <button class = "amount-button">+</button> <!--Signe plus-->
+                            <button class = "amount-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                         </div>
-                            <button class = "amount-button">X</button> <!--Bouton supprimer-->
+                            <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
                     </div>
                     <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
                         <div class = "item-infos-grid-element">

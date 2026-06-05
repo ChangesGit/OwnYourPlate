@@ -5,6 +5,7 @@ let totalProducts = [];
 let alreadyAddedSearch = [];
 let alreadyAddedPending = [];
 const searchResultBox = document.getElementById('search-results');
+const pendingBox = document.getElementById('pending-food-box');
 
 let addButton = document.querySelectorAll('.result-product .small-button');
 
@@ -77,13 +78,25 @@ searchBar.addEventListener('input', () => {
 
 
 searchResultBox.addEventListener('click', (e) => {
-    let target = e.target;
+    const target = e.target;
     if(target.matches(".small-button")) {
-        let productName = target.getAttribute("data-product-name");
-        let index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
-        let product = products[index];
+        const productName = target.getAttribute("data-product-name");
+        const index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
+        const product = products[index];
         totalProducts.push(product);
         placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt)
+        totalDisplay(totalProducts);
+    }
+})
+
+pendingBox.addEventListener('click', (e) => { //We delete the element first from totalProducts, then from the DOM, then we display a new total
+    const target = e.target;
+    if(target.matches(".delete-pending")) {
+        const productName = target.getAttribute("data-product-name");
+        const index = totalProducts.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
+        totalProducts.splice(index, 1);
+        const productToDelete = document.querySelector(`#pending-food-box article[data-product-name = ${productName}]`)
+        productToDelete.remove();
         totalDisplay(totalProducts);
     }
 })

@@ -108,7 +108,7 @@ main {
     margin:auto;
     margin-top: 32px;
     max-height: 500px;
-    overflow: scroll; /*TODO: Rendre toujours visible*/
+    overflow-y: scroll; /*TODO: Rendre toujours visible*/
     padding: 15px;
     & + button {
         margin-top: 20px;
