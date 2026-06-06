@@ -15,6 +15,7 @@
 
 :root {
     --button-color: #FDCED9;
+    --button-color-hover: #FAA2DF;
     --box-background-color: white;
     --text-color: black;
 }
@@ -64,11 +65,23 @@ main {
     width: 116px;
 }
 
+.small-button:hover, .large-button:hover {
+    background-color: var(--button-color-hover);
+}
+
+.small-button:active, .large-button:active {
+    box-shadow: none;
+}
+
 .large-button {
     background-color: var(--button-color);
     height: 40px;
     width: 190px;
     display: block;
+}
+
+.amount-button:hover {
+    background-color: gainsboro;
 }
 
 .result-product {
