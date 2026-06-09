@@ -6,6 +6,8 @@ let alreadyAddedSearch = [];
 let alreadyAddedPending = [];
 const searchResultBox = document.getElementById('search-results');
 const pendingBox = document.getElementById('pending-food-box');
+const resetPendingButton = document.getElementsByClassName('reset-pending')[0];
+const resetSearchBarButton = document.getElementsByClassName('reset-search-bar');
 
 let addButton = document.querySelectorAll('.result-product .small-button');
 
@@ -99,4 +101,15 @@ pendingBox.addEventListener('click', (e) => { //We delete the element first from
         productToDelete.remove();
         totalDisplay(totalProducts);
     }
+})
+
+resetPendingButton.addEventListener('click', () => { //Reset the pending box and actualise the total
+    totalProducts = [];
+    const toDelete = document.querySelectorAll('#pending-food-box article');
+    toDelete.forEach(product => product.remove());
+    totalDisplay(totalProducts);
+})
+
+resetSearchBarButton.addEventListener('click', () => {
+
 })

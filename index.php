@@ -21,7 +21,7 @@
                     <input type="search" name = "searchBar" id = "searchBar" placeholder="Rechercher">
                 </div>
                 <button class = "small-button soft-shadow soft-border" type = "submit">Rechercher</button>
-                <button class = "small-button soft-shadow soft-border" type = "reset">Effacer</button>
+                <button class = "small-button soft-shadow soft-border reset-search-bar" type = "reset">Effacer</button>
             </form>
         </section>
 
@@ -35,7 +35,7 @@
             <div class = "pending-food-box-buttons">
                 <div>
                     <button class="small-button soft-border soft-shadow">Retour</button>
-                    <button class="small-button soft-border soft-shadow">Effacer</button>
+                    <button class="small-button soft-border soft-shadow reset-pending">Effacer</button>
                 </div>
                 <button class = "large-button soft-border soft-shadow">Enregistrer recette</button>
             </div>

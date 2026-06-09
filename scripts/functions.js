@@ -30,7 +30,17 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 </div>
                     <div>
                     <p>...</p>
-                    <button class = "small-button soft-border soft-shadow" data-product-name = "${name}">Ajouter </button>
+                    <div>
+                        <button class = "small-button soft-border soft-shadow" data-product-name = "${name}">Ajouter</button>
+                        <div>
+                            <button class = "amount-button" data-product-name = "${name}">-</button> <!--Signe moins-->
+                            <div class = "number-box soft-border">
+                                <p>100 g</p>
+                            </div>
+                            <button class = "amount-button" data-product-name = "${name}">+</button> <!--Signe plus-->
+                        </div>
+
+                    </div>
                 </div>
                 <hr class = "box-bar">
             </article>`
