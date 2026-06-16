@@ -49,6 +49,8 @@ main {
     margin-bottom: 75px;
 }
 
+
+
 .soft-shadow {
     box-shadow: 4px 4px 4px rgba(0, 0, 0,0.25);
     border-radius: 10px;
@@ -476,7 +478,7 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
         width: 700px;
         
     & h1 {
-        transform: translateX(-50%);
+        transform: translateX(-25%);
         margin-bottom: 85px;
         margin-top: 75px;
     }

@@ -6,6 +6,13 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 <div class = "name-img-flex">
                     <img src=${imgURL} alt=${imgAlt}>
                     <h3>${name}</h3>
+                    <div>
+                        <button class = "amount-button plus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
+                        <div class = "number-box soft-border">
+                            <input type = "number" min = "0"><span class = "quantity-number">100</span> g</input>
+                        </div>
+                        <button class = "amount-button minus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
+                    </div>
                 </div>
                 <div class = "result-nutri">
                     <div class = "text-number">
@@ -32,14 +39,6 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                     <p>...</p>
                     <div>
                         <button class = "small-button soft-border soft-shadow" data-product-name = "${name}">Ajouter</button>
-                        <div>
-                            <button class = "amount-button" data-product-name = "${name}">-</button> <!--Signe moins-->
-                            <div class = "number-box soft-border">
-                                <p>100 g</p>
-                            </div>
-                            <button class = "amount-button" data-product-name = "${name}">+</button> <!--Signe plus-->
-                        </div>
-
                     </div>
                 </div>
                 <hr class = "box-bar">

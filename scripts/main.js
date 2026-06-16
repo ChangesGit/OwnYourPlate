@@ -91,6 +91,16 @@ searchResultBox.addEventListener('click', (e) => {
     }
 })
 
+searchResultBox.addEventListener('click', (e) => {
+    const target = e.target;
+    if(target.matches(".plus-button")) {
+
+    }
+    if(target.matches(".minus-button")) {
+        
+    }
+})
+
 pendingBox.addEventListener('click', (e) => { //We delete the element first from totalProducts, then from the DOM, then we display a new total
     const target = e.target;
     if(target.matches(".delete-pending")) {
