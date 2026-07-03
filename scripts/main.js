@@ -1,7 +1,7 @@
+// Déclarations variables ------------------------------------------------------------------------ 
+
 let products = [];
-
 let totalProducts = [];
-
 let alreadyAddedSearch = [];
 let alreadyAddedPending = [];
 const searchResultBox = document.getElementById('search-results');
@@ -11,13 +11,17 @@ const resetSearchBarButton = document.getElementsByClassName('reset-search-bar')
 
 let addButton = document.querySelectorAll('.result-product .small-button');
 
+const minusPlusAmount = 50;
+
+
+// -------------------------------------------------------------------------
+
 
 
 async function loadProducts() {
   try {
     const response = await fetch("./scripts/products.json");
     const data = await response.json();
-
     products = data;
     console.log(products);
   } catch (error) {
@@ -26,6 +30,7 @@ async function loadProducts() {
 }
 
 loadProducts();
+
 
 const burgerMenu = document.querySelector('#burger-menu nav');
 const burgerMenuButton = document.getElementById('menu-toggle');
@@ -47,6 +52,8 @@ const searchBar = document.getElementById('searchBar');
 
 let searchResults = [];
 
+
+//Fonction recherche
 searchBar.addEventListener('input', () => {
     searchResultBox.innerHTML = "";
     products.forEach(product => {
@@ -79,28 +86,90 @@ searchBar.addEventListener('input', () => {
 })
 
 
+//Fonction ajouter un article au pending
 searchResultBox.addEventListener('click', (e) => {
     const target = e.target;
     if(target.matches(".small-button")) {
         const productName = target.getAttribute("data-product-name");
         const index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
         const product = products[index];
+
+        const container = target.closest(".result-product");
+        const inputBox = container.querySelector(".grams-count");
+        let grams = Number(inputBox.value);
+        console.log(container);
+        console.log(inputBox);
+        console.log(grams);
+
         totalProducts.push(product);
-        placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt)
+        placeArticlePending(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs, product.fat, product.saturatedFat, product.fibers, product.salt, grams)
         totalDisplay(totalProducts);
     }
 })
 
 searchResultBox.addEventListener('click', (e) => {
     const target = e.target;
+
     if(target.matches(".plus-button")) {
 
+        //On récupère la box de l'input
+        const container = target.closest(".result-product");
+        const inputBox = container.querySelector(".grams-count");
+
+        //On récupère le nom du produit grâce au data-product-name du bouton"
+        const smallButton = container.querySelector(".small-button");
+        const productName = smallButton.getAttribute("data-product-name");
+        const index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
+        const product = products[index];
+
+        //On modifie les inputs
+        inputBox.value = Number(inputBox.value) + minusPlusAmount;
+        grams = Number(inputBox.value);
+        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
+        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
+        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
+        const carbsText = container.querySelector(".carbs-box").querySelector("p");
+        kJText.innerText = (grams/100) * product.kJ + " kJ";
+        kCalText.innerText = (grams/100) * product.kCal + " kCal";
+        proteinsText.innerText = (grams/100) * product.proteins + " g";
+        carbsText.innerText = (grams/100) * product.carbs + " g";
+
+
     }
+
     if(target.matches(".minus-button")) {
-        
+
+        //On récupère la box de l'input
+        const container = target.closest(".result-product");
+        const inputBox = container.querySelector(".grams-count");
+
+        //On récupère le nom du produit grâce au data-product-name du bouton"
+        const smallButton = container.querySelector(".small-button");
+        const productName = smallButton.getAttribute("data-product-name");
+        const index = products.findIndex(e => e.name.toLowerCase() === productName.toLowerCase());
+        const product = products[index];
+
+        //On modifie les inputs
+        if(Number(inputBox.value) - minusPlusAmount >= 0) {
+            inputBox.value = Number(inputBox.value) - minusPlusAmount;
+        }
+        grams = Number(inputBox.value);
+        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
+        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
+        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
+        const carbsText = container.querySelector(".carbs-box").querySelector("p");
+        kJText.innerText = (grams/100) * product.kJ + " kJ";
+        kCalText.innerText = (grams/100) * product.kCal + " kCal";
+        proteinsText.innerText = (grams/100) * product.proteins + " g";
+        carbsText.innerText = (grams/100) * product.carbs + " g";
+
     }
 })
 
+
+
+
+//Fonction supprimer un article de pending
 pendingBox.addEventListener('click', (e) => { //We delete the element first from totalProducts, then from the DOM, then we display a new total
     const target = e.target;
     if(target.matches(".delete-pending")) {
@@ -113,6 +182,25 @@ pendingBox.addEventListener('click', (e) => { //We delete the element first from
     }
 })
 
+pendingBox.addEventListener('click', (e) => {
+    const target = e.target;
+    if(target.matches(".plus-button")) {
+        const container = target.closest(".pending-food-item");
+        const inputBox = container.querySelector(".grams-count");
+        inputBox.value = Number(inputBox.value) + minusPlusAmount;
+        console.log(container);
+    }
+    if(target.matches(".minus-button")) {
+        const container = target.closest(".pending-food-item");
+        const inputBox = container.querySelector(".grams-count");
+        if(Number(inputBox.value) - minusPlusAmount >= 0) {
+            inputBox.value = Number(inputBox.value) - minusPlusAmount;
+        }
+        console.log(inputBox);
+    }
+})
+
+
 resetPendingButton.addEventListener('click', () => { //Reset the pending box and actualise the total
     totalProducts = [];
     const toDelete = document.querySelectorAll('#pending-food-box article');
@@ -123,3 +211,6 @@ resetPendingButton.addEventListener('click', () => { //Reset the pending box and
 resetSearchBarButton.addEventListener('click', () => {
 
 })
+
+
+placeArticleSearchResult(products[0].imgUrl, products[0].imgAlt, products[0].name, products[0].kJ, products[0].kCal, products[0].proteins, products[0].carbs);

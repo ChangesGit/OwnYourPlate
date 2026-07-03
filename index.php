@@ -26,12 +26,14 @@
         </section>
 
         <section id = "search-results" class ="soft-shadow soft-border content-box"> <!--Résultat recherche-->
-
+            <h2 style="margin-top: 0px;margin-bottom: 0px;">Résultats</h2>
+            <hr>
         </section>
         <button class = "soft-border soft-shadow large-button" type = "POST">Aliments Personnalisés</button>
 
         <section id = "pending-food-box" class = "soft-border soft-shadow content-box"> <!--Aliments choisis-->
-    
+            <h2 style="margin-top: 0px;margin-bottom: 0px;">Aliments choisis</h2>
+            <hr>
             <div class = "pending-food-box-buttons">
                 <div>
                     <button class="small-button soft-border soft-shadow">Retour</button>

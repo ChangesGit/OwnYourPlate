@@ -1,5 +1,3 @@
-
-
 function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carbs) {
     const searchResultBox = document.getElementById('search-results');
     let resultArticleTemplate = `<article class = "result-product"> <!--Produit-->
@@ -7,35 +5,36 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                     <img src=${imgURL} alt=${imgAlt}>
                     <h3>${name}</h3>
                     <div>
-                        <button class = "amount-button plus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
+                        <button class = "amount-button minus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
                         <div class = "number-box soft-border">
-                            <input type = "number" min = "0"><span class = "quantity-number">100</span> g</input>
+                            <input class = "grams-count" type = "number" min = "0" value = "0"></input>
+                            <span>g</span>
                         </div>
-                        <button class = "amount-button minus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
+                        <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                     </div>
                 </div>
                 <div class = "result-nutri">
                     <div class = "text-number">
                         <p>Calories/100g : </p>
-                        <div class = "number-box soft-border">
+                        <div class = "number-box soft-border calories-box">
                             <p>${kJ} kJ</p>
                             <p>${kCal} kCal</p>
                         </div>
                     </div>
                     <div class = "text-number mobile-hidden-flex">
                         <p>Protéines/100g : </p>
-                        <div class = "number-box soft-border">
+                        <div class = "number-box soft-border proteins-box">
                             <p>${proteins} g</p>
                         </div>
                     </div>
                     <div class = "text-number mobile-hidden-flex">
                         <p>Glucides/100g : </p>
-                        <div class = "number-box soft-border">
+                        <div class = "number-box soft-border carbs-box">
                             <p>${carbs} g</p>
                         </div>
                     </div>
                 </div>
-                    <div>
+                <div>
                     <p>...</p>
                     <div>
                         <button class = "small-button soft-border soft-shadow" data-product-name = "${name}">Ajouter</button>
@@ -47,7 +46,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
     searchResultBox.insertAdjacentHTML("afterbegin", resultArticleTemplate);
 }
 
-function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt) { //TODO : Rajouter une variable "quantité"
+function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
     const pendingBox = document.getElementById('pending-food-box');    
     let pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                     <div class = "name-img-flex">
@@ -57,57 +56,58 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
                     <div class = "text-button-flex">
                         <p>Quantité (g) : </p>
                         <div>
-                            <button class = "amount-button" data-product-name = "${name}">-</button> <!--Signe moins-->
+                            <button class = "amount-button minus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
                             <div class = "number-box soft-border">
-                                <p>100 g</p>
+                                <input class = "grams-count" type = "number" min = "0" value = "${grams}"></input>
+                                <span>g</span>
                             </div>
-                            <button class = "amount-button" data-product-name = "${name}">+</button> <!--Signe plus-->
+                            <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                         </div>
                             <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
                     </div>
                     <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
                         <div class = "item-infos-grid-element">
                             <p>Calories</p>
-                            <div class = "number-box soft-border">
+                            <div class = "number-box soft-border calories-box">
                                 <p>${kJ} kJ</p>
                                 <p>${kCal} kCal</p>
                             </div>
                         </div>
                         <div class = "item-infos-grid-element">
                             <p>Protéines</p>
-                            <div class = "number-box soft-border">
+                            <div class = "number-box soft-border proteins-box">
                                 <p>${proteins} g</p>
                             </div>
                         </div>
                         <div class = "item-infos-grid-element">
                             <p>Glucides</p>
-                            <div class = "number-box soft-border">
+                            <div class = "number-box soft-border carbs-box">
                                 <p>${carbs} g</p>
                             </div>
                         </div>
                         <div>
                             <div class = "item-infos-grid-element">
                                 <p>Matières grasses</p>
-                                <div class = "number-box soft-border">
+                                <div class = "number-box soft-border fat-box">
                                     <p>${fat} g</p>
                                 </div>
                             </div>
                             <div class = "item-infos-grid-element mobile-hidden-flex">
                                 <p>Dont Acides Gras Saturés</p>
-                                <div class = "number-box soft-border">
+                                <div class = "number-box soft-border saturated-fat-box">
                                     <p>${saturatedFat} g</p>
                                 </div>
                             </div>
                         </div>
                         <div class = "item-infos-grid-element mobile-hidden-flex">
                             <p>Fibres</p>
-                            <div class = "number-box soft-border">
+                            <div class = "number-box soft-border fibers-box">
                                 <p>${fibers} g</p>
                             </div>
                         </div>
                         <div class = "item-infos-grid-element mobile-hidden-flex">
                             <p>Sel</p>
-                            <div class = "number-box soft-border">
+                            <div class = "number-box soft-border salt-box">
                                 <p>${salt} g</p>
                             </div>
                         </div>

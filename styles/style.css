@@ -98,6 +98,26 @@ main {
             margin-right: 20px;
         }
     }
+
+    & input {
+        flex: 1;
+        min-width: 0;
+        font: inherit;
+        height: 90%;
+        border-radius: 10px;
+        border: none;
+        text-align: right;
+    }
+
+    & input:focus {
+        outline: none;
+    }
+
+    & .number-box {
+        display: flex;
+        flex-direction: row;
+    }
+
 }
 
 .name-img-flex {
@@ -125,10 +145,15 @@ main {
     max-height: 500px;
     overflow-y: scroll; /*TODO: Rendre toujours visible*/
     padding: 15px;
+
     & + button {
         margin-top: 20px;
         justify-self: right;
     }
+}
+
+h2 {
+    margin: 0px;
 }
 
 .content-box {
@@ -321,6 +346,24 @@ form button[type = "reset"] {
 .pending-food-item {
     display: flex;
     flex-direction: column;
+        & input {
+        flex: 1;
+        min-width: 0;
+        font: inherit;
+        height: 90%;
+        border-radius: 10px;
+        border: none;
+        text-align: right;
+    }
+
+    & input:focus {
+        outline: none;
+    }
+
+    & .number-box {
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 .item-infos-grid {
@@ -548,3 +591,17 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
         height: 16px;
     }
 }
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
