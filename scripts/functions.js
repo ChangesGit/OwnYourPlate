@@ -122,7 +122,7 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
 
 
 function totalDisplay(products) {
-    const hTotalMass = document.getElementById('total-mass');
+    const hTotalGrams = document.getElementById('total-mass');
     const hTotalKJ = document.getElementById('total-kj');
     const hTotalKCal = document.getElementById('total-kcal');
     const hTotalProteins = document.getElementById('total-proteins');
@@ -131,7 +131,7 @@ function totalDisplay(products) {
     const hTotalFat = document.getElementById('total-fat');
     const hTotalSaturatedFat = document.getElementById('total-saturated-fat');
     const hTotalSalt = document.getElementById('total-salt');
-    let totalMass = 0;
+    let totalGrams = 0;
     let totalKJ = 0;
     let totalKCal = 0;
     let totalProteins = 0;
@@ -141,17 +141,18 @@ function totalDisplay(products) {
     let totalSaturatedFat = 0;
     let totalSalt = 0;
     products.forEach(product => {
-        totalKJ += product.kJ;
-        totalKCal += product.kCal;
-        totalProteins += product.proteins;
-        totalCarbs += product.carbs;
-        totalFibers += product.fibers
-        totalFat += product.fat;
-        totalSaturatedFat += product.saturatedFat;
-        totalSalt += product.salt;
+        totalGrams += product.grams;
+        totalKJ += product.kJ * (product.grams/100);
+        totalKCal += product.kCal * (product.grams/100);
+        totalProteins += product.proteins * (product.grams/100);
+        totalCarbs += product.carbs * (product.grams/100);
+        totalFibers += product.fibers * (product.grams/100);
+        totalFat += product.fat * (product.grams/100);
+        totalSaturatedFat += product.saturatedFat * (product.grams/100);
+        totalSalt += product.salt * (product.grams/100);
     });
 
-    hTotalMass.innerText = totalMass + "g";
+    hTotalGrams.innerText = totalGrams + "g";
     hTotalKJ.innerText = totalKJ + "kJ";
     hTotalKCal.innerText = totalKCal + "kCal";
     hTotalProteins.innerText = totalProteins + "g";
