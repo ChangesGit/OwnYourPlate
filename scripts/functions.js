@@ -4,7 +4,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 <div class = "name-img-flex">
                     <img src=${imgURL} alt=${imgAlt}>
                     <h3>${name}</h3>
-                    <div>
+                    <div class = "number-buttons-box">
                         <button class = "amount-button minus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
                         <div class = "number-box soft-border">
                             <input class = "grams-count" type = "number" min = "0" value = "0"></input>

@@ -115,7 +115,7 @@ main {
 
     & .number-box {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     }
 
 }
@@ -184,7 +184,20 @@ h2 {
     }
 }
 
+.number-buttons-box {
+    display: none;
+    margin-top: 15px;
+    & .minus-button {
+        margin-right : 15px;
+    }
+    & .plus-button {
+        margin-left: 15px;
+    }
 
+    & .number-box {
+        flex-direction: row;
+    }
+}
 
 header {
     background-color: #9FC48E;
@@ -512,8 +525,13 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
     flex-direction: row;
 }
 
-@media screen and (max-width: 768px) { /*Breakpoint Tablette*/
-    
+@media screen and (min-width: 768px) { /*Breakpoint Tablette*/
+    .number-buttons-box {
+        display: flex;
+    }
+    main {
+        width: 600px;
+    }
 }
 
 @media screen and (min-width: 1024px) { /*Desktop Breakpoint*/
