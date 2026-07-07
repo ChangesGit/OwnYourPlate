@@ -49,5 +49,6 @@
         <div>
             <img class = "header-icon" src="./assets/images/language-icon.svg" alt="Icône langue">
             <img class = "header-icon header-icon-right" src="./assets/images/user-icon.svg" alt="Icône Utilisateur">
+            <?php if($_SESSION)
         </div>
     </header>

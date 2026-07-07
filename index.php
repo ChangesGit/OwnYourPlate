@@ -1,3 +1,12 @@
+<?php require_once __DIR__.'/db_connect.php';
+foreach ($products as $product) {
+?>
+    <p><?php echo $product['name']; ?></p>
+<?php
+}
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

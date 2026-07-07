@@ -1,6 +1,6 @@
 function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carbs) {
     const searchResultBox = document.getElementById('search-results');
-    let resultArticleTemplate = `<article class = "result-product"> <!--Produit-->
+    const resultArticleTemplate = `<article class = "result-product"> <!--Produit-->
                 <div class = "name-img-flex">
                     <img src=${imgURL} alt=${imgAlt}>
                     <h3>${name}</h3>
@@ -48,7 +48,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
 
 function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
     const pendingBox = document.getElementById('pending-food-box');    
-    let pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
+    const pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                     <div class = "name-img-flex">
                         <img src=${imgUrl} alt="${imgAlt}">
                         <h3>${name}</h3>
