@@ -59,7 +59,7 @@ searchBar.addEventListener('input', () => {
     products.forEach(product => {
         let matches = false;
         for(let i = 0; i < product.keywords.length; i++) {
-            if (product.keywords[i].includes(searchBar.value) && !searchResults.includes(product)) {
+            if (product.keywords[i].includes(searchBar.value.toLowerCase()) && !searchResults.includes(product)) {
                 matches = true;
             }
         }
