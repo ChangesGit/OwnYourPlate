@@ -1,3 +1,6 @@
+
+
+
 let resultArticleTemplateSave = `<article class = "result-product"> <!--Produit-->
                 <div class = "name-img-flex">
                     <img src="./assets/images/skyr-1.png" alt="Image d'un produit">
@@ -134,3 +137,4 @@ let resultArticleTemplate = `<article class = "result-product"> <!--Produit-->
                     <hr class = "box-bar">
                 </article>`
                 
+

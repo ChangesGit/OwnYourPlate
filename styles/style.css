@@ -500,7 +500,9 @@ hr {
     }
 }
 
-
+#login-form {
+    display: none;
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 

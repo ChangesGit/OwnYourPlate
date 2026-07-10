@@ -1,14 +1,13 @@
-<?php require_once __DIR__.'/db_connect.php';
-foreach ($products as $product) {
-?>
-    <p><?php echo $product['name']; ?></p>
 <?php
-}
- ?>
-
+    session_start();
+    require_once(__DIR__ . '/db_connect.php');
+    require_once(__DIR__ . '/variables.php');
+    require_once(__DIR__ . '/functions.php');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +15,8 @@ foreach ($products as $product) {
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="icon" type="image/x-icon" href="./assets/images/ico.svg">
 </head>
+
+
 <body>
     <?php require_once(__DIR__.'/header.php'); ?>
     <main>

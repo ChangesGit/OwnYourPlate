@@ -327,3 +327,11 @@ resetSearchBarButton.addEventListener('click', () => {
 
 
 placeArticleSearchResult(products[0].imgUrl, products[0].imgAlt, products[0].name, products[0].kJ, products[0].kCal, products[0].proteins, products[0].carbs);
+
+
+
+
+login_button.addEventListener('click', (e) => {
+    console.log('test');
+    login_button.style.display = flex;
+})
