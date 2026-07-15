@@ -3,10 +3,10 @@
             <button id = "menu-toggle"><img src="./assets/images/burger-menu.svg" alt="Navigation button"></button>
             <nav class = "soft-shadow">
                 <ul>
-                    <a href="./index.html">
+                    <a href="./index.php">
                         <li>Accueil</li>
                     </a>
-                    <a href="./recipes.html">
+                    <a href="./recipes.php">
                         <li>Mes Recettes</li>
                     </a>
                     <a href="">
@@ -25,11 +25,11 @@
         <img class = "desktop-logo mobile-hidden-flex" src="./assets/images/desktop-logo.svg" alt="Logo OwnYourPlate desktop">
         <nav class = "desktop-nav mobile-hidden-flex">
             <ul>
-                <a href="./index.html">
+                <a href="./index.php">
                     <li>Accueil</li>
                 </a>
                 <li>|</li>
-                <a href="./recipes.html">
+                <a href="./recipes.php">
                     <li>Mes Recettes</li>
                 </a>
                 <li>|</li>
