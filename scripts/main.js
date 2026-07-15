@@ -9,6 +9,7 @@ const pendingBox = document.getElementById('pending-food-box');
 const resetPendingButton = document.getElementsByClassName('reset-pending')[0];
 const resetSearchBarButton = document.getElementsByClassName('reset-search-bar');
 
+
 let addButton = document.querySelectorAll('.result-product .small-button');
 
 const minusPlusAmount = 50;
@@ -17,19 +18,19 @@ const minusPlusAmount = 50;
 // -------------------------------------------------------------------------
 
 
+// On affiche les 10 premiers résultats de la BDD en initialisation
+(async () => {
+    const searchBar = document.getElementById('searchBar');
+initResults = await searchFunction(searchBar);
+initResults.forEach(product => {
+    placeArticleSearchResult(product['imgurl'], '', product['name'], product['kj'], product['kcal'], product['proteins'], product['carbs']);
+});
+})();
 
-async function loadProducts() {
-  try {
-    const response = await fetch("./scripts/products.json");
-    const data = await response.json();
-    products = data;
-    console.log(products);
-  } catch (error) {
-    console.error("Impossible d'accéder à la base de donnée :", error);
-  }
-}
 
-loadProducts();
+
+// ------------------------------------------------------------------------
+
 
 
 const burgerMenu = document.querySelector('#burger-menu nav');
@@ -46,43 +47,28 @@ burgerMenuButton.addEventListener('click', () => {
 })
 
 
-const searchBar = document.getElementById('searchBar');
 
-//TODO : Ajouter une limite d'items ? Ajouter la possibilité d'écrire plusieurs mots ? Vérifier que le mot n'est pas déjà dans la barre
+//TODO : Ajouter la possibilité d'écrire plusieurs mots ? Vérifier que le mot n'est pas déjà dans la barre
 
+//Initialisation Fonction Recherche
 let searchResults = [];
+let debounceTimer;
 
 
+//TODO : Ajouter un AbortController
 //Fonction recherche
-searchBar.addEventListener('input', () => {
-    searchResultBox.innerHTML = "";
-    products.forEach(product => {
-        let matches = false;
-        for(let i = 0; i < product.keywords.length; i++) {
-            if (product.keywords[i].includes(searchBar.value.toLowerCase()) && !searchResults.includes(product)) {
-                matches = true;
-            }
+searchBar.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(async () => {
+        while(searchResultBox.childElementCount>2) {
+            searchResultBox.removeChild(searchResultBox.lastChild);
         }
-        if(matches) {
-            searchResults.push(product);
-        }
-        else if(!matches && searchResults.some(e => e.name === product.name)) {
-            const index = searchResults.findIndex(e => e.name === product.name);
-            searchResults.splice(index, 1);
-        }
-        matches = false;
-    });
-
-    searchResults.forEach(product => {
-
-        if(!alreadyAddedSearch.includes(product.name)) {
-            alreadyAddedSearch.push(product.name);
-            placeArticleSearchResult(product.imgUrl, product.imgAlt, product.name, product.kJ, product.kCal, product.proteins, product.carbs)
-        }
-    })
-
-    searchResults = [];
-    alreadyAddedSearch = [];
+        results = await searchFunction(e.target);
+        results.forEach(product => {
+            placeArticleSearchResult(product['imgurl'], '', product['name'], product['kj'], product['kcal'], product['proteins'], product['carbs']);
+        });
+    }, 300)
+    
 })
 
 

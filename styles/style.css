@@ -536,6 +536,13 @@ hr {
     margin-top: 10px;
 }
 
+#search-bar + p {
+    font-size: 0.9rem;
+    margin-left: 15px;
+    margin-top: 0px;
+    color: rgb(99, 99, 99);
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 

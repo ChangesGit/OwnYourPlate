@@ -24,7 +24,12 @@
     <?php require_once(__DIR__.'/header.php');?>
     <main>
         <h1>Approprie toi ton assiette !</h1>
+        <?php if(isset($_SESSION['name'])) {
+            echo '<h2>Bonjour, '.$_SESSION['name'].'</h2>';
+        }
+        ?>
         <hr> <!--barre de séparation-->
+
         <section> <!--Barre de recherche-->
             <form action="" method = "POST">
                 <div id = "search-bar" class = "soft-shadow">
@@ -33,6 +38,7 @@
                     </div>
                     <input type="search" name = "searchBar" id = "searchBar" placeholder="Rechercher">
                 </div>
+                <p>Cherchez 1 objet à la fois</p>
                 <button class = "small-button soft-shadow soft-border" type = "submit">Rechercher</button>
                 <button class = "small-button soft-shadow soft-border reset-search-bar" type = "reset">Effacer</button>
             </form>

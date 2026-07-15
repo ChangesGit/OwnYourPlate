@@ -43,7 +43,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 <hr class = "box-bar">
             </article>`
 
-    searchResultBox.insertAdjacentHTML("afterbegin", resultArticleTemplate);
+    searchResultBox.insertAdjacentHTML("beforeend", resultArticleTemplate);
 }
 
 function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
@@ -116,7 +116,7 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
                 </article>`
                 
     if(!pendingBox.innerHTML.includes(pendingArticleTemplate)) {
-        pendingBox.insertAdjacentHTML("afterbegin", pendingArticleTemplate);
+        pendingBox.insertAdjacentHTML("beforeend", pendingArticleTemplate);
     }
 }
 
@@ -162,4 +162,11 @@ function totalDisplay(products) {
     hTotalSaturatedFat.innerText = totalSaturatedFat + "g";
     hTotalSalt.innerText = totalSalt + "g";
     console.log(totalKJ, totalProteins, totalCarbs);
+}
+
+async function searchFunction(searchBar){
+    const userInput = searchBar.value.toLowerCase();
+    const response = await fetch('./search.php?q='+encodeURIComponent(userInput));
+    const results = await response.json();
+    return results;
 }
