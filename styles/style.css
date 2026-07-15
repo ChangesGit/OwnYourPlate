@@ -45,6 +45,7 @@ main {
     /* margin-left: 8%;
     margin-right: 8%; */
     width: 345px;
+    min-height: 100vh;
     margin: auto;
     margin-bottom: 75px;
 }
@@ -501,7 +502,38 @@ hr {
 }
 
 #login-form {
-    display: none;
+    display: flex;
+    background-color: var(--box-background-color);
+    padding: 15px;
+    & .small-button {
+        margin: auto;
+    }
+    margin-right: 15px;
+    & a {
+        color: gray;
+        font-size: 0.7rem;
+    }
+}
+
+#sign-up-form {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    & input {
+        margin-bottom: 10px;
+        border-radius: 10px;
+        border: 0.5px solid black;
+        padding: 5px;
+    }
+    & label {
+        margin-bottom: 5px;
+    }
+
+}
+
+.guest-link {
+    color: gray;
+    margin-top: 10px;
 }
 
 input:-webkit-autofill,
@@ -539,6 +571,7 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
 @media screen and (min-width: 1024px) { /*Desktop Breakpoint*/
     main {
         width: 700px;
+        min-height: 100vh;
         
     & h1 {
         transform: translateX(-25%);
@@ -572,6 +605,7 @@ input:-webkit-autofill:active{ /*webkit = outil utilisé par chrome pour l'auto-
     }
 
     footer {
+        margin-top: auto;
         & nav {
             height: 10px;
         }

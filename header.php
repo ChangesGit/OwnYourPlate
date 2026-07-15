@@ -49,8 +49,13 @@
         <div>
             <img class = "header-icon" src="./assets/images/language-icon.svg" alt="Icône langue">
             <img id = "login-button" class = "header-icon header-icon-right" src="./assets/images/user-icon.svg" alt="Icône Utilisateur">
-            <div id = "login-form">
-                <?php require_once __DIR__.'/login.php';?>
-            </div>
+            <?php if(!isset($_SESSION['name'])) {
+                require_once __DIR__.'/login.php';
+            }
+            else {
+                require_once __DIR__.'/profile.php';
+            }
+            ?>
+
         </div>
     </header>

@@ -3,6 +3,7 @@
     require_once(__DIR__ . '/db_connect.php');
     require_once(__DIR__ . '/variables.php');
     require_once(__DIR__ . '/functions.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@
 
 
 <body>
-    <?php require_once(__DIR__.'/header.php'); ?>
+    <?php require_once(__DIR__.'/header.php');?>
     <main>
         <h1>Approprie toi ton assiette !</h1>
         <hr> <!--barre de séparation-->
@@ -40,6 +41,10 @@
             <hr>
         </section>
         <button class = "soft-border soft-shadow large-button" type = "POST">Aliments Personnalisés</button>
+        <?php if(!isset($_SESSION['name'])) {
+            echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des aliments personnalisés</a>';
+        }
+        ?>
 
         <section id = "pending-food-box" class = "soft-border soft-shadow content-box"> <!--Aliments choisis-->
             <h2 style="margin-top: 0px;margin-bottom: 0px;">Aliments choisis</h2>
@@ -50,8 +55,13 @@
                     <button class="small-button soft-border soft-shadow reset-pending">Effacer</button>
                 </div>
                 <button class = "large-button soft-border soft-shadow">Enregistrer recette</button>
+                <?php if(!isset($_SESSION['name'])) {
+            echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des recettes</a>';
+        }
+        ?>
             </div>
         </section>
+
 
         <section class = "summary-box soft-border soft-shadow content-box"> <!--Total Nutritionnel-->
             <h2>Total :</h2>

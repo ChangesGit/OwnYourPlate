@@ -1,3 +1,4 @@
-<?php session_destroy() ?>
-
-<?php echo 'salut !' ?>
+<?php require_once __DIR__."/functions.php";
+session_destroy();
+redirectToUrl('./index.php');
+?>
