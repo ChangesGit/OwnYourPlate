@@ -378,6 +378,11 @@ form button[type = "reset"] {
         display: flex;
         flex-direction: row;
     }
+
+    & .calories-box {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .item-infos-grid {
@@ -666,3 +671,43 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+
+
+
+/* ----------------------- TEMPORAIRE ----------------------- */
+
+.overflow-text {
+    font-size : 0.9rem;
+}
+
+#create-recipe-form {
+    border: 0.5px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: var(--box-background-color);
+    & input {
+        border-radius: 5px;
+        border: 0.5px solid black;
+        padding: 5px;
+    }
+    & button {
+        margin: auto;
+
+    }
+
+    & > button:first-of-type{
+        text-align: right;
+        background-color: white;
+        margin-left: auto;
+        border-radius: 100px;
+        border: 0.1px solid black;
+    }
+
+    & > button:first-of-type:hover {
+        background-color: var(--button-color-hover);
+    }
+
+    & > button:first-of-type:active {
+        background-color: var(--box-background-color);
+    }
+}

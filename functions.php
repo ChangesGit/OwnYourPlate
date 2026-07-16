@@ -32,6 +32,7 @@
         $userData = $fetchUsers->fetch();
         if($userData !== false && password_verify($userPassword, $userData['password'])) {
             $_SESSION['name'] = $userData['name'];
+            $_SESSION['email'] = $userData['email'];
             return true;
         }
         elseif($userData === false) {

@@ -62,11 +62,19 @@
                     <button class="small-button soft-border soft-shadow">Retour</button>
                     <button class="small-button soft-border soft-shadow reset-pending">Effacer</button>
                 </div>
-                <button class = "large-button soft-border soft-shadow">Enregistrer recette</button>
+                <button id = "create-recipe-button" class = "large-button soft-border soft-shadow">Enregistrer recette</button>
                 <?php if(!isset($_SESSION['name'])) {
-            echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des recettes</a>';
-        }
-        ?>
+                    echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des recettes</a>';
+                }
+                ?>
+                <dialog id = "create-recipe-form">
+                    <button>x</button>
+                    <form  action = "./recipe_create.php" method="POST">
+                        <label for="recipe-name">Nom de la recette :</label>
+                        <input id = "recipe-name" type="text" placeholder="Blanquette de veau">
+                        <button id = "send-recipe-button" class = "small-button soft-shadow soft-border" type = "button">Enregistrer</button>
+                    </form>
+                </dialog>
             </div>
         </section>
 

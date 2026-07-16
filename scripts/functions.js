@@ -7,7 +7,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                     <div class = "number-buttons-box">
                         <button class = "amount-button minus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
                         <div class = "number-box soft-border">
-                            <input class = "grams-count" type = "number" min = "0" value = "0"></input>
+                            <input class = "grams-count" type = "number" min = "0" value = "100"></input>
                             <span>g</span>
                         </div>
                         <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
@@ -15,20 +15,20 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
                 </div>
                 <div class = "result-nutri">
                     <div class = "text-number">
-                        <p>Calories/100g : </p>
+                        <p>Calories : </p>
                         <div class = "number-box soft-border calories-box">
                             <p>${kJ} kJ</p>
                             <p>${kCal} kCal</p>
                         </div>
                     </div>
                     <div class = "text-number mobile-hidden-flex">
-                        <p>Protéines/100g : </p>
+                        <p>Protéines : </p>
                         <div class = "number-box soft-border proteins-box">
                             <p>${proteins} g</p>
                         </div>
                     </div>
                     <div class = "text-number mobile-hidden-flex">
-                        <p>Glucides/100g : </p>
+                        <p>Glucides : </p>
                         <div class = "number-box soft-border carbs-box">
                             <p>${carbs} g</p>
                         </div>
@@ -46,11 +46,11 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
     searchResultBox.insertAdjacentHTML("beforeend", resultArticleTemplate);
 }
 
-function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
+function placeArticlePending(imgUrl, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
     const pendingBox = document.getElementById('pending-food-box');    
     const pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                     <div class = "name-img-flex">
-                        <img src=${imgUrl} alt="${imgAlt}">
+                        <img src=${imgUrl} alt="image de ${name}">
                         <h3>${name}</h3>
                     </div>
                     <div class = "text-button-flex">
@@ -87,13 +87,13 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
                         </div>
                         <div>
                             <div class = "item-infos-grid-element">
-                                <p>Matières grasses</p>
+                                <p class = "overflow-text">Matières grasses</p>
                                 <div class = "number-box soft-border fat-box">
                                     <p>${fat} g</p>
                                 </div>
                             </div>
                             <div class = "item-infos-grid-element mobile-hidden-flex">
-                                <p>Dont Acides Gras Saturés</p>
+                                <p class = "overflow-text">Dont Acides Gras Saturés</p>
                                 <div class = "number-box soft-border saturated-fat-box">
                                     <p>${saturatedFat} g</p>
                                 </div>
@@ -116,7 +116,7 @@ function placeArticlePending(imgUrl, imgAlt, name, kJ, kCal, proteins, carbs, fa
                 </article>`
                 
     if(!pendingBox.innerHTML.includes(pendingArticleTemplate)) {
-        pendingBox.insertAdjacentHTML("beforeend", pendingArticleTemplate);
+        pendingBox.children[1].insertAdjacentHTML("afterend", pendingArticleTemplate);
     }
 }
 
@@ -142,25 +142,25 @@ function totalDisplay(products) {
     let totalSalt = 0;
     products.forEach(product => {
         totalGrams += product.grams;
-        totalKJ += product.kJ * (product.grams/100);
-        totalKCal += product.kCal * (product.grams/100);
+        totalKJ += product.kj * (product.grams/100);
+        totalKCal += product.kcal * (product.grams/100);
         totalProteins += product.proteins * (product.grams/100);
         totalCarbs += product.carbs * (product.grams/100);
         totalFibers += product.fibers * (product.grams/100);
         totalFat += product.fat * (product.grams/100);
-        totalSaturatedFat += product.saturatedFat * (product.grams/100);
-        totalSalt += product.salt * (product.grams/100);
+        totalSaturatedFat += product.saturated_fat * (product.grams/100);
+        totalSalt += roundClean(product.salt * (product.grams/100));
     });
 
-    hTotalGrams.innerText = totalGrams + "g";
-    hTotalKJ.innerText = totalKJ + "kJ";
-    hTotalKCal.innerText = totalKCal + "kCal";
-    hTotalProteins.innerText = totalProteins + "g";
-    hTotalCarbs.innerText = totalCarbs + "g";
-    hTotalFibers.innerText = totalFibers + "g";
-    hTotalFat.innerText = totalFat + "g";
-    hTotalSaturatedFat.innerText = totalSaturatedFat + "g";
-    hTotalSalt.innerText = totalSalt + "g";
+    hTotalGrams.innerText = roundClean(totalGrams) + "g";
+    hTotalKJ.innerText = roundClean(totalKJ) + "kJ";
+    hTotalKCal.innerText = roundClean(totalKCal) + "kCal";
+    hTotalProteins.innerText = roundClean(totalProteins) + "g";
+    hTotalCarbs.innerText = roundClean(totalCarbs) + "g";
+    hTotalFibers.innerText = roundClean(totalFibers) + "g";
+    hTotalFat.innerText = roundClean(totalFat) + "g";
+    hTotalSaturatedFat.innerText = roundClean(totalSaturatedFat) + "g";
+    hTotalSalt.innerText = roundClean(totalSalt) + "g";
     console.log(totalKJ, totalProteins, totalCarbs);
 }
 
@@ -169,4 +169,16 @@ async function searchFunction(searchBar){
     const response = await fetch('./search.php?q='+encodeURIComponent(userInput));
     const results = await response.json();
     return results;
+}
+
+async function createRecipe(products) {
+    const response = await fetch('./recipe_create.php', {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(products)
+    });
+}
+
+function roundClean(number, decimals = 2) {
+    return parseFloat(number.toFixed(decimals));
 }
