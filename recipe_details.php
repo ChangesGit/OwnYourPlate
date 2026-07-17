@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <?php require_once __DIR__.'/header.php';?>
+    <?php require_once(__DIR__.'/header.php');?>
 
     <main>
         <h1>Mes recettes</h1>
+        <?php echo '<h2>'.$_GET['name'].'</h2>'; ?>
         <hr>
-        <section id = "recipes-box" class ="soft-shadow soft-border content-box"> <!--Toutes mes recettes-->
+        <section id = "recipe-box" class ="soft-shadow soft-border content-box"> <!--Toutes mes recettes-->
 
         </section>
     </main>
@@ -43,7 +44,7 @@
 
     <script src="./scripts/variables.js"></script>
     <script src="./scripts/functions.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/recipes.js"></script>
+    <!-- <script src="./scripts/main.js"></script>   -->
+    <script src="./scripts/recipe_details.js"></script>
 </body>
 </html>

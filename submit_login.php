@@ -14,6 +14,7 @@
             }
             else {
                 echo "Email ou mot de passe invalide";
+                echo '<a href="./index.php">Retourner sur la page d\'accueil</a>';
             }
         }
     }

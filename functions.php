@@ -27,12 +27,13 @@
 
     //Si l'email et le mot de passe correspondent -> stock le nom dans la session et renvoie true, sinon, renvoie false.
     function loginVerification(PDO $mysqlClient, string $userEmail, string $userPassword) {
-        $fetchUsers = $mysqlClient->prepare('SELECT `name`, email, `password` FROM users WHERE email = ?');
+        $fetchUsers = $mysqlClient->prepare('SELECT `name`, email, `password`, md5(user_id) FROM users WHERE email = ?');
         $fetchUsers->execute([$userEmail]);
         $userData = $fetchUsers->fetch();
         if($userData !== false && password_verify($userPassword, $userData['password'])) {
             $_SESSION['name'] = $userData['name'];
             $_SESSION['email'] = $userData['email'];
+            $_SESSION['user_id'] = $userData['md5(user_id)'];
             return true;
         }
         elseif($userData === false) {

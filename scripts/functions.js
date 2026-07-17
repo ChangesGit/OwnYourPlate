@@ -120,6 +120,124 @@ function placeArticlePending(imgUrl, name, kJ, kCal, proteins, carbs, fat, satur
     }
 }
 
+function placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipeId, imgurl = './assets/images/default-recipe-image.jpg') {
+    const recipesBox = document.getElementById('recipes-box');
+    const recipeTemplate = `<article class = "recipe"> <!--Une recette-->
+                <div class = "name-img-flex">
+                    <img src=${imgurl} alt="Image d'un produit">
+                    <h3>${name}</h3>
+                </div>
+                <div class = "text-number">
+                    <p>Poids total : </p>
+                    <div class = "number-box soft-border">
+                        <p>${grams} g</p>
+                    </div>
+                </div>
+                <div class = "text-number">
+                    <p>Calories : </p>
+                    <div class = "number-box soft-border">
+                        <p>${kj} kJ</p>
+                        <p>${kcal} kCal</p>
+                    </div>
+                </div>
+                <div class = "text-number">
+                    <p>Ajoutée le :  </p>
+                    <div class = "date-box soft-border">
+                        <p>${createdAt}</p>
+                    </div>
+                </div>
+                <div class = "text-number">
+                    <p>Dernières modifications : </p>
+                    <div class = "date-box soft-border">
+                        <p>${updatedAt}</p>
+                    </div>
+                </div>
+                <div>
+                    <form action="./recipe_details.php" method = "GET">
+                        <input type="hidden" name="id" value="${recipeId}">
+                        <input type="hidden" name="name" value="${name}">
+                        <button class = "small-button soft-border soft-shadow">Voir détails</button>
+                    </form>
+                </div>
+                <hr class = "box-bar">
+            </article>`;
+
+    recipesBox.insertAdjacentHTML("beforeend", recipeTemplate);
+
+
+}
+
+function placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt) {
+    const recipeDetailsBox = document.getElementById('recipe-box');
+    const recipeIngredientTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
+                <div class = "name-img-flex">
+                    <img src=${imgurl} alt="image de ${name}">
+                    <h3>${name}</h3>
+                </div>
+                <div class = "text-button-flex">
+                    <p>Quantité (g) : </p>
+                    <div>
+                        <button class = "amount-button minus-button" data-product-name = "${name}">-</button> <!--Signe moins-->
+                        <div class = "number-box soft-border">
+                            <input class = "grams-count" type = "number" min = "0" value = "${grams}"></input>
+                            <span>g</span>
+                        </div>
+                        <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
+                    </div>
+                        <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
+                </div>
+                <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
+                    <div class = "item-infos-grid-element">
+                        <p>Calories</p>
+                        <div class = "number-box soft-border calories-box">
+                            <p>${kj} kJ</p>
+                            <p>${kcal} kCal</p>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element">
+                        <p>Protéines</p>
+                        <div class = "number-box soft-border proteins-box">
+                            <p>${proteins} g</p>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element">
+                        <p>Glucides</p>
+                        <div class = "number-box soft-border carbs-box">
+                            <p>${carbs} g</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class = "item-infos-grid-element">
+                            <p class = "overflow-text">Matières grasses</p>
+                            <div class = "number-box soft-border fat-box">
+                                <p>${fat} g</p>
+                            </div>
+                        </div>
+                        <div class = "item-infos-grid-element mobile-hidden-flex">
+                            <p class = "overflow-text">Dont Acides Gras Saturés</p>
+                            <div class = "number-box soft-border saturated-fat-box">
+                                <p>${saturatedFat} g</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element mobile-hidden-flex">
+                        <p>Fibres</p>
+                        <div class = "number-box soft-border fibers-box">
+                            <p>${fibers} g</p>
+                        </div>
+                    </div>
+                    <div class = "item-infos-grid-element mobile-hidden-flex">
+                        <p>Sel</p>
+                        <div class = "number-box soft-border salt-box">
+                            <p>${salt} g</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class = "box-bar">
+            </article>`
+    recipeDetailsBox.insertAdjacentHTML("beforeend", recipeIngredientTemplate);
+
+}
 
 function totalDisplay(products) {
     const hTotalGrams = document.getElementById('total-mass');
@@ -181,4 +299,72 @@ async function createRecipe(products) {
 
 function roundClean(number, decimals = 2) {
     return parseFloat(number.toFixed(decimals));
+}
+
+
+//Place les recettes sur la page recipes.php
+async function recipesPageStartUp() {
+
+    const response = await fetch('./recipes_read.php');
+    const recipes = await response.json();
+    console.log(recipes);
+    let name = '';
+    let grams = 0;
+    let kj = 0;
+    let kcal = 0;
+    let createdAt = '';
+    let updatedAt = '';
+    let recipe_id = 0;
+    ;
+
+    recipes.forEach((recipe, index) => {
+        if(recipe['recipe_id'] == recipe_id) {
+            name = recipe['recipe_name'];
+            grams += recipe['quantity'];
+            kj += recipe['kj'] * (grams/100);
+            kcal += recipe['kcal'] * (grams/100);
+            createdAt = recipe['created_at'];
+            updatedAt = recipe['updated_at'];
+            if (index === (recipes.length - 1)) {
+                console.log(index);
+                placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipe_id);
+            }
+        }
+        else {
+            if(recipe_id !=0) {
+                placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipe_id);
+                
+            }
+            recipe_id = recipe['recipe_id'];
+            name = recipe['recipe_name'];
+            grams = recipe['quantity'];
+            kj = recipe['kj'] * (grams/100);
+            kcal = recipe['kcal'] * (grams/100);
+            createdAt = recipe['created_at'];
+            updatedAt = recipe['updated_at'];
+        }
+
+    }); 
+}
+
+async function recipeDetailsStartUp() {
+    const params = new URLSearchParams(window.location.search);
+    const recipeId = params.get('id');
+    const response = await fetch('./recipe_details_read.php?id=' + recipeId);
+    const recipe = await response.json();
+    console.log(recipe);
+    recipe.forEach((ingredient) => {
+        const name = ingredient.name;
+        const imgurl= ingredient.imgurl;
+        const grams = ingredient.quantity;
+        const kj = ingredient.kj;
+        const kcal = ingredient.kcal;
+        const proteins = ingredient.proteins;
+        const carbs = ingredient.carbs;
+        const fat = ingredient.fat;
+        const saturatedFat = ingredient.saturated_fat;
+        const fibers = ingredient.fibers;
+        const salt = ingredient.salt;
+        placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt);
+    })
 }
