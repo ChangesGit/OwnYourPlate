@@ -724,11 +724,25 @@ input[type=number] {
         margin-top: 20px;
         justify-self: right;
     }
+    
 }
 
 .recipe {
     display: flex;
     flex-direction: column;
+}
+
+#recipe-box {
+    margin:auto;
+    margin-top: 32px;
+    overflow-y: scroll; /*TODO: Rendre toujours visible*/
+    padding: 15px;
+
+    &  .small-button, .large-button {
+        margin-top: 20px;
+        justify-self: right;
+    }
+    
 }
 
 .date-box {

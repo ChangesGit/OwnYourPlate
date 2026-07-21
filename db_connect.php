@@ -4,7 +4,7 @@ try
     $mysqlClient = new PDO (
     'mysql:host=localhost;dbname=ownyourplate;charset=utf8',
     'root',
-    'root'
+    ''
 );
 }
 catch (Exception $e)

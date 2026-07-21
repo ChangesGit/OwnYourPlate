@@ -185,6 +185,10 @@ function placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, f
                         <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                     </div>
                         <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
+                        <dialog id = "delete-confirmation-modal">
+                            <p>Êtes-vous sûr de vouloir enregistrer les modifications ?</p>
+                            <button id = "delete-confirmation-button">Je confirme</button>
+                        </dialog>
                 </div>
                 <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
                     <div class = "item-infos-grid-element">
@@ -233,9 +237,10 @@ function placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, f
                         </div>
                     </div>
                 </div>
+                <button class="small-button soft-shadow soft-border">Voir</button>
                 <hr class = "box-bar">
             </article>`
-    recipeDetailsBox.insertAdjacentHTML("beforeend", recipeIngredientTemplate);
+    recipeDetailsBox.insertAdjacentHTML("afterbegin", recipeIngredientTemplate);
 
 }
 
@@ -297,6 +302,14 @@ async function createRecipe(products) {
     });
 }
 
+async function updateRecipe(products) {
+    const response = await fetch('./recipe_update.php', {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(products)
+    });
+}
+
 function roundClean(number, decimals = 2) {
     return parseFloat(number.toFixed(decimals));
 }
@@ -315,16 +328,17 @@ async function recipesPageStartUp() {
     let createdAt = '';
     let updatedAt = '';
     let recipe_id = 0;
-    ;
 
     recipes.forEach((recipe, index) => {
         if(recipe['recipe_id'] == recipe_id) {
+            
             name = recipe['recipe_name'];
             grams += recipe['quantity'];
             kj += recipe['kj'] * (grams/100);
             kcal += recipe['kcal'] * (grams/100);
             createdAt = recipe['created_at'];
             updatedAt = recipe['updated_at'];
+            console.log(index);
             if (index === (recipes.length - 1)) {
                 console.log(index);
                 placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipe_id);
@@ -335,6 +349,7 @@ async function recipesPageStartUp() {
                 placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipe_id);
                 
             }
+            const recipe_save = recipe_id;
             recipe_id = recipe['recipe_id'];
             name = recipe['recipe_name'];
             grams = recipe['quantity'];
@@ -342,29 +357,65 @@ async function recipesPageStartUp() {
             kcal = recipe['kcal'] * (grams/100);
             createdAt = recipe['created_at'];
             updatedAt = recipe['updated_at'];
+
+            //Si il y a une seule recette on ne repasse pas dans la boucle et on l'affiche donc
+            if(recipes.length == 1) {
+                console.log("test")
+                placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipe_id);
+            }
         }
 
     }); 
 }
 
+
 async function recipeDetailsStartUp() {
     const params = new URLSearchParams(window.location.search);
     const recipeId = params.get('id');
     const response = await fetch('./recipe_details_read.php?id=' + recipeId);
-    const recipe = await response.json();
-    console.log(recipe);
-    recipe.forEach((ingredient) => {
-        const name = ingredient.name;
-        const imgurl= ingredient.imgurl;
-        const grams = ingredient.quantity;
-        const kj = ingredient.kj;
-        const kcal = ingredient.kcal;
-        const proteins = ingredient.proteins;
-        const carbs = ingredient.carbs;
-        const fat = ingredient.fat;
-        const saturatedFat = ingredient.saturated_fat;
-        const fibers = ingredient.fibers;
-        const salt = ingredient.salt;
-        placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt);
+    recipeIngredients = await response.json();
+    recipeIngredientsUntouched = structuredClone(recipeIngredients);
+
+    console.log(recipeIngredients);
+    recipeDetailsPlacer(recipeIngredients);
+    }
+
+
+function recipeDetailsPlacer(recipeIngredients) {
+        recipeIngredients.forEach((ingredient) => {
+            const name = ingredient.name;
+            const imgurl= ingredient.imgurl;
+            const grams = ingredient.quantity;
+            const kj = ingredient.kj;
+            const kcal = ingredient.kcal;
+            const proteins = ingredient.proteins;
+            const carbs = ingredient.carbs;
+            const fat = ingredient.fat;
+            const saturatedFat = ingredient.saturated_fat;
+            const fibers = ingredient.fibers;
+            const salt = ingredient.salt;
+            placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt);
     })
+}
+
+function resetRecipeDetails() {
+    const recipeBox = document.getElementById('recipe-box');
+    recipeBox.innerHTML = "";
+    recipeBox.innerHTML = `<button id = "cancel-recipe-details" class="large-button soft-shadow soft-border">Annuler modifications</button>
+            <dialog id = "cancel-confirmation-modal">
+                <p>Êtes-vous sûr de vouloir annuler les modifications ?</p>
+                <button id = "cancel-confirmation-button">Je confirme</button>
+            </dialog>
+            <button id = "save-recipe-details" class="large-button soft-shadow soft-border">Enregistrer modifications</button>
+            <dialog id = "save-confirmation-modal">
+                <p>Êtes-vous sûr de vouloir enregistrer les modifications ?</p>
+                <button id = "save-confirmation-button">Je confirme</button>
+            </dialog>
+        </section>`;
+    console.log('réussite')
+    
+}
+
+function deleteRecipeIngredient() {
+
 }
