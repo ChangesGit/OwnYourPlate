@@ -64,22 +64,7 @@ recipeBox.addEventListener('click', (e) => {
         grams = Number(inputBox.value);
         recipeIngredients[index].quantity = grams;
         
-        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
-        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
-        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
-        const carbsText = container.querySelector(".carbs-box").querySelector("p");
-        const fatText = container.querySelector(".fat-box").querySelector("p");
-        const saturatedFatText = container.querySelector(".saturated-fat-box").querySelector("p");
-        const fibersText = container.querySelector(".fibers-box").querySelector("p");
-        const saltText = container.querySelector(".salt-box").querySelector("p");
-        kJText.innerText = roundClean((grams/100) * product.kj) + " kJ";
-        kCalText.innerText = roundClean((grams/100) * product.kcal) + " kCal";
-        proteinsText.innerText = roundClean((grams/100) * product.proteins) + " g";
-        carbsText.innerText = roundClean((grams/100) * product.carbs) + " g";
-        fatText.innerText = roundClean((grams/100) * product.fat) + " g";
-        saturatedFatText.innerText = roundClean((grams/100) * product.saturated_fat) + " g";
-        fibersText.innerText = roundClean((grams/100) * product.fibers) + " g";
-        saltText.innerText = roundClean((grams/100) * product.salt) + " g";
+        updateNutriValues(container, product, grams, "extended");
     }
     if(target.matches(".minus-button")) {
         const container = target.closest(".pending-food-item");
@@ -99,22 +84,7 @@ recipeBox.addEventListener('click', (e) => {
         
         grams = Number(inputBox.value);
         recipeIngredients[index].quantity = grams;
-        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
-        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
-        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
-        const carbsText = container.querySelector(".carbs-box").querySelector("p");
-        const fatText = container.querySelector(".fat-box").querySelector("p");
-        const saturatedFatText = container.querySelector(".saturated-fat-box").querySelector("p");
-        const fibersText = container.querySelector(".fibers-box").querySelector("p");
-        const saltText = container.querySelector(".salt-box").querySelector("p");
-        kJText.innerText = roundClean((grams/100) * product.kj) + " kJ";
-        kCalText.innerText = roundClean((grams/100) * product.kcal) + " kCal";
-        proteinsText.innerText = roundClean((grams/100) * product.proteins) + " g";
-        carbsText.innerText = roundClean((grams/100) * product.carbs) + " g";
-        fatText.innerText = roundClean((grams/100) * product.fat) + " g";
-        saturatedFatText.innerText = roundClean((grams/100) * product.saturated_fat) + " g";
-        fibersText.innerText = roundClean((grams/100) * product.fibers) + " g";
-        saltText.innerText = roundClean((grams/100) * product.salt) + " g";
+        updateNutriValues(container, product, grams, "extended");
      }
 
      //Bouton supprimer
