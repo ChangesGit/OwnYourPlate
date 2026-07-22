@@ -25,7 +25,7 @@
     <main>
         <h1>Approprie toi ton assiette !</h1>
         <?php if(isset($_SESSION['name'])) {
-            echo '<h2>Bonjour, '. $_SESSION['name'] .' le S.</h2>';
+            echo '<h2>Bonjour, '. $_SESSION['name'] .'.</h2>';
         }
         ?>
         <hr> <!--barre de séparation-->

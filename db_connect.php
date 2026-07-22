@@ -1,10 +1,12 @@
 <?php 
+include(__DIR__.'/env.php');
+
 try
 {
     $mysqlClient = new PDO (
-    'mysql:host=localhost;dbname=ownyourplate;charset=utf8',
-    'root',
-    ''
+    'mysql:host='.BDD_HOST.';dbname='.BDD_NAME.';charset=utf8',
+    BDD_USERNAME,
+    BDD_PASSWORD
 );
 }
 catch (Exception $e)

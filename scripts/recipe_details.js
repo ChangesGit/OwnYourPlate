@@ -117,9 +117,11 @@ recipeBox.addEventListener('click', (e) => {
         saltText.innerText = roundClean((grams/100) * product.salt) + " g";
      }
 
+     //Bouton supprimer
      if(target.matches(".delete-pending")) {
         const container = target.closest('.pending-food-item');
-        console.log(container)
+        const modal = target.nextElementSibling;
+        modal.showModal();
      }
 })
 

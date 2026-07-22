@@ -1,4 +1,4 @@
-function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carbs) {
+function placeArticleSearchResult(imgURL = "./assets/images/ingredient-placeholder.png", imgAlt, name, kJ, kCal, proteins, carbs) {
     const searchResultBox = document.getElementById('search-results');
     const resultArticleTemplate = `<article class = "result-product"> <!--Produit-->
                 <div class = "name-img-flex">
@@ -46,7 +46,7 @@ function placeArticleSearchResult(imgURL, imgAlt, name, kJ, kCal, proteins, carb
     searchResultBox.insertAdjacentHTML("beforeend", resultArticleTemplate);
 }
 
-function placeArticlePending(imgUrl, name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams) { //TODO : Rajouter une variable "quantité"
+function placeArticlePending(imgUrl  = "./assets/images/ingredient-placeholder.png", name, kJ, kCal, proteins, carbs, fat, saturatedFat, fibers, salt, grams, product_id) { //TODO : Rajouter une variable "quantité"
     const pendingBox = document.getElementById('pending-food-box');    
     const pendingArticleTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                     <div class = "name-img-flex">
@@ -63,7 +63,7 @@ function placeArticlePending(imgUrl, name, kJ, kCal, proteins, carbs, fat, satur
                             </div>
                             <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                         </div>
-                            <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
+                            <button class = "amount-button delete-pending" data-product-name = "${name}" data-product-id = ${product_id}>X</button> <!--Bouton supprimer-->
                     </div>
                     <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
                         <div class = "item-infos-grid-element">
@@ -120,7 +120,7 @@ function placeArticlePending(imgUrl, name, kJ, kCal, proteins, carbs, fat, satur
     }
 }
 
-function placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipeId, imgurl = './assets/images/default-recipe-image.jpg') {
+function placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipeId, imgurl = './assets/images/default-recipe-image2.jpg') {
     const recipesBox = document.getElementById('recipes-box');
     const recipeTemplate = `<article class = "recipe"> <!--Une recette-->
                 <div class = "name-img-flex">
@@ -167,7 +167,7 @@ function placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipeId, imgu
 
 }
 
-function placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt) {
+function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-placeholder.png", grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, product_id) {
     const recipeDetailsBox = document.getElementById('recipe-box');
     const recipeIngredientTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                 <div class = "name-img-flex">
@@ -184,10 +184,10 @@ function placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, f
                         </div>
                         <button class = "amount-button plus-button" data-product-name = "${name}">+</button> <!--Signe plus-->
                     </div>
-                        <button class = "amount-button delete-pending" data-product-name = "${name}">X</button> <!--Bouton supprimer-->
-                        <dialog id = "delete-confirmation-modal">
-                            <p>Êtes-vous sûr de vouloir enregistrer les modifications ?</p>
-                            <button id = "delete-confirmation-button">Je confirme</button>
+                        <button class = "amount-button delete-pending" data-product-name = "${name}" data-product-id = ${product_id}>X</button> <!--Bouton supprimer-->
+                        <dialog class = "delete-confirmation-modal">
+                            <p>Es-tu sûr de vouloir supprimer ${name} ? Cette action est définitive</p>
+                            <button class = "delete-confirmation-button">Je confirme</button>
                         </dialog>
                 </div>
                 <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
@@ -394,7 +394,7 @@ function recipeDetailsPlacer(recipeIngredients) {
             const saturatedFat = ingredient.saturated_fat;
             const fibers = ingredient.fibers;
             const salt = ingredient.salt;
-            placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt);
+            placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, ingredient.product_id);
     })
 }
 
@@ -414,6 +414,48 @@ function resetRecipeDetails() {
         </section>`;
     console.log('réussite')
     
+}
+
+function updateNutriValues(container, product, grams, infos = "extended") {
+    if(infos == "extended"){
+        const gramsInput = container.querySelector(".grams-count");
+        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
+        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
+        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
+        const carbsText = container.querySelector(".carbs-box").querySelector("p");
+        const fatText = container.querySelector(".fat-box").querySelector("p");
+        const saturatedFatText = container.querySelector(".saturated-fat-box").querySelector("p");
+        const fibersText = container.querySelector(".fibers-box").querySelector("p");
+        const saltText = container.querySelector(".salt-box").querySelector("p");
+        gramsInput.value = grams;
+        kJText.innerText = roundClean((grams/100) * product.kj) + " kJ";
+        kCalText.innerText = roundClean((grams/100) * product.kcal) + " kCal";
+        proteinsText.innerText = roundClean((grams/100) * product.proteins) + " g";
+        carbsText.innerText = roundClean((grams/100) * product.carbs) + " g";
+        fatText.innerText = roundClean((grams/100) * product.fat) + " g";
+        saturatedFatText.innerText = roundClean((grams/100) * product.saturated_fat) + " g";
+        fibersText.innerText = roundClean((grams/100) * product.fibers) + " g";
+        saltText.innerText = roundClean((grams/100) * product.salt) + " g";
+    }
+    else if (infos == "short") {
+        const gramsInput = container.querySelector(".grams-count");
+        const kJText = container.querySelector(".calories-box").querySelector("p:first-of-type");
+        const kCalText = container.querySelector(".calories-box").querySelector("p:nth-of-type(2)");
+        const proteinsText = container.querySelector(".proteins-box").querySelector("p");
+        const carbsText = container.querySelector(".carbs-box").querySelector("p");
+        gramsInput.value = grams;
+        kJText.innerText = roundClean((grams/100) * product.kj) + " kJ";
+        kCalText.innerText = roundClean((grams/100) * product.kcal) + " kCal";
+        proteinsText.innerText = roundClean((grams/100) * product.proteins) + " g";
+        carbsText.innerText = roundClean((grams/100) * product.carbs) + " g";
+    }
+}
+
+function updateArticlePending(product) {
+    const pendingBox = document.getElementById('pending-food-box');
+    const deleteButton = pendingBox.querySelector(`[data-product-id="${product.product_id}"]`);
+    const container = deleteButton.closest(".pending-food-item");
+    updateNutriValues(container, product, product.grams, "extended");
 }
 
 function deleteRecipeIngredient() {
