@@ -290,3 +290,10 @@ sendRecipeForm.addEventListener('click', (e) => {
     createRecipeForm.close();
     inputRecipe.value = '';
 })
+
+
+const searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', (e) => {
+    document.activeElement.blur();
+    e.preventDefault();
+})

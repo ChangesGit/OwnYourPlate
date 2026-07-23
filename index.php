@@ -39,7 +39,7 @@
                     <input type="search" name = "searchBar" id = "searchBar" placeholder="Rechercher">
                 </div>
                 <p>Cherchez 1 objet à la fois</p>
-                <button class = "small-button soft-shadow soft-border" type = "submit">Rechercher</button>
+                <button id = "search-button" class = "small-button soft-shadow soft-border" type = "submit">Rechercher</button>
                 <button class = "small-button soft-shadow soft-border reset-search-bar" type = "reset">Effacer</button>
             </form>
         </section>
@@ -48,7 +48,7 @@
             <h2 style="margin-top: 0px;margin-bottom: 0px;">Résultats</h2>
             <hr>
         </section>
-        <button class = "soft-border soft-shadow large-button" type = "POST">Aliments Personnalisés</button>
+        <button class = "soft-border soft-shadow large-button" type = "POST">Work In Progress</button>
         <?php if(!isset($_SESSION['name'])) {
             echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des aliments personnalisés</a>';
         }
@@ -59,7 +59,7 @@
             <hr>
             <div class = "pending-food-box-buttons">
                 <div>
-                    <button class="small-button soft-border soft-shadow">Retour</button>
+                    <button class="small-button soft-border soft-shadow">Work In Progress</button>
                     <button class="small-button soft-border soft-shadow reset-pending">Effacer</button>
                 </div>
                 <button id = "create-recipe-button" class = "large-button soft-border soft-shadow">Enregistrer recette</button>
