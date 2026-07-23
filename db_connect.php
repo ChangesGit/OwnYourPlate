@@ -4,9 +4,9 @@ include(__DIR__.'/env.php');
 try
 {
     $mysqlClient = new PDO (
-    'mysql:host='.BDD_HOST.';dbname='.BDD_NAME.';charset=utf8',
-    BDD_USERNAME,
-    BDD_PASSWORD
+    'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8',
+    DB_USERNAME,
+    DB_PASSWORD
 );
 }
 catch (Exception $e)

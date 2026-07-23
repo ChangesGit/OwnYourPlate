@@ -93,6 +93,14 @@ recipeBox.addEventListener('click', (e) => {
         const modal = target.nextElementSibling;
         modal.showModal();
      }
+
+     //Bouton confirmer la suppression d'un ingrédient
+     if(target.matches(".delete-confirmation-button")) {
+        const product_id = target.previousElementSibling.value;
+        const recipe_id = target.previousElementSibling.previousElementSibling.value;
+        console.log(product_id, recipe_id);
+        deleteRecipeIngredient(product_id, recipe_id);
+     }
 })
 
 

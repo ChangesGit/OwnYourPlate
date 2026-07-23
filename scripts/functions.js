@@ -167,7 +167,7 @@ function placeRecipe(name, grams, kj, kcal, createdAt, updatedAt, recipeId, imgu
 
 }
 
-function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-placeholder.png", grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, product_id) {
+function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-placeholder.png", grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, recipe_id, product_id) {
     const recipeDetailsBox = document.getElementById('recipe-box');
     const recipeIngredientTemplate = `<article class = "pending-food-item" data-product-name = "${name}"> <!--Aliment-->
                 <div class = "name-img-flex">
@@ -187,6 +187,8 @@ function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-plac
                         <button class = "amount-button delete-pending" data-product-name = "${name}" data-product-id = ${product_id}>X</button> <!--Bouton supprimer-->
                         <dialog class = "delete-confirmation-modal">
                             <p>Es-tu sûr de vouloir supprimer ${name} ? Cette action est définitive</p>
+                            <input type="hidden" name="recipe-id" value="${recipe_id}">
+                            <input type="hidden" name="product-id" value="${product_id}">
                             <button class = "delete-confirmation-button">Je confirme</button>
                         </dialog>
                 </div>
@@ -394,7 +396,7 @@ function recipeDetailsPlacer(recipeIngredients) {
             const saturatedFat = ingredient.saturated_fat;
             const fibers = ingredient.fibers;
             const salt = ingredient.salt;
-            placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, ingredient.product_id);
+            placeIngredientDetails(name, imgurl,grams, kj, kcal, proteins, carbs, fat, saturatedFat, fibers, salt, ingredient.recipe_id, ingredient.product_id);
     })
 }
 
@@ -458,6 +460,10 @@ function updateArticlePending(product) {
     updateNutriValues(container, product, product.grams, "extended");
 }
 
-function deleteRecipeIngredient() {
-
+async function deleteRecipeIngredient(product_id, recipe_id) {
+        const response = await fetch('./recipe_delete.php', {
+        method: "POST",
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify([product_id, recipe_id])
+    });
 }
