@@ -1,3 +1,7 @@
+function escapeHTML(input) {
+    const toInsert = document.createElement
+}
+
 function placeArticleSearchResult(imgURL = "./assets/images/ingredient-placeholder.png", imgAlt, name, kJ, kCal, proteins, carbs) {
     const searchResultBox = document.getElementById('search-results');
     const resultArticleTemplate = `<article class = "result-product"> <!--Produit-->

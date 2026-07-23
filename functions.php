@@ -4,20 +4,20 @@
         session_start();
     };
 
-    function redirectToUrl(string $url): never
+    function redirectToUrl(string $url): void
     {
         header("Location: {$url}");
         exit();
     }
 
 
-    function insertSignUp(PDO $mysqlClient, string $userName, string $userEmail, string $userPassword) {
+    function insertSignUp(PDO $mysqlClient, string $userName, string $userEmail, string $userPassword) : void {
         $signUpSQL = $mysqlClient->prepare("INSERT INTO users (`name`, email, `password`) VALUES
         (?, ?, ?)");
         $signUpSQL->execute([$userName, $userEmail, password_hash($userPassword, PASSWORD_DEFAULT)]);
     }
 
-    function emailExists(PDO $mysqlClient, string $userEmail) {
+    function emailExists(PDO $mysqlClient, string $userEmail) : bool {
         $fetchEmailsNames = $mysqlClient->prepare('SELECT email FROM users WHERE email=?');
         $fetchEmailsNames->execute([$userEmail]);
 
@@ -26,7 +26,7 @@
 
 
     //Si l'email et le mot de passe correspondent -> stock le nom dans la session et renvoie true, sinon, renvoie false.
-    function loginVerification(PDO $mysqlClient, string $userEmail, string $userPassword) {
+    function loginVerification(PDO $mysqlClient, string $userEmail, string $userPassword) : bool {
         $fetchUsers = $mysqlClient->prepare('SELECT `name`, email, `password`, md5(user_id) FROM users WHERE email = ?');
         $fetchUsers->execute([$userEmail]);
         $userData = $fetchUsers->fetch();
@@ -39,5 +39,11 @@
         elseif($userData === false) {
             return false;
         }
+        else return false;
+    }
+
+    function sanitize(string $input) : string {
+        return htmlentities(htmlspecialchars(strip_tags(trim($input))));
     }
 ?>
+
