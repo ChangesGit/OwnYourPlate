@@ -95,11 +95,21 @@ recipeBox.addEventListener('click', (e) => {
      }
 
      //Bouton confirmer la suppression d'un ingrédient
+     //TODO : Retirer l'élément du tableau en plus de la suppression visuelle
      if(target.matches(".delete-confirmation-button")) {
         const product_id = target.previousElementSibling.value;
         const recipe_id = target.previousElementSibling.previousElementSibling.value;
-        console.log(product_id, recipe_id);
+        console.log(product_id)
         deleteRecipeIngredient(product_id, recipe_id);
+        const modal = target.parentElement;
+        const ingredientBox = modal.parentElement.parentElement;
+        const index = recipeIngredients.findIndex(e => e.product_id === parseInt(product_id));
+        const indexUntouched = recipeIngredientsUntouched.findIndex(e => e.product_id === product_id);
+        console.log(index, indexUntouched)
+        recipeIngredients.splice(index, 1);
+        recipeIngredientsUntouched.splice(indexUntouched, 1);
+        modal.close();
+        ingredientBox.remove();
      }
 })
 

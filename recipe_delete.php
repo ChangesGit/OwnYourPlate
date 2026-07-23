@@ -9,18 +9,13 @@
 
     print_r($toDelete);
 
-    // if(isset($_SESSION['email'])) {
+    if(isset($_SESSION['email'])) {
 
+        $deleteStmt = $mysqlClient->prepare('DELETE FROM to_compose WHERE recipe_id = ? AND product_id = ?');
 
-    //     $updateStmt = $mysqlClient->prepare('UPDATE to_compose SET quantity = ? WHERE recipe_id = ? and product_id = ?');
-    //     $deleteStmt = $mysqlClient->prepare('DELETE FROM to_compose WHERE recipe_id = ? AND product_id = ?');
+        $product_id = $toDelete[0];
+        $recipe_id = $toDelete[1];
 
-    //     foreach($recipeIngredients as $ingredient) {
-    //         if($ingredient['quantity']!==0) {
-    //             $updateStmt->execute([$ingredient['quantity'], $ingredient['recipe_id'], $ingredient['product_id']]);
-    //         }
-    //         elseif($ingredient['quantity'] === 0) {
-    //             $deleteStmt->execute([$ingredient['recipe_id'], $ingredient['product_id']]);
-    //         }
-    //     }
-    // }
+        $deleteStmt->execute([$recipe_id, $product_id]);
+        redirectToUrl('./recipe_details.php');
+    }

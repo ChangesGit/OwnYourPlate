@@ -189,7 +189,7 @@ function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-plac
                             <p>Es-tu sûr de vouloir supprimer ${name} ? Cette action est définitive</p>
                             <input type="hidden" name="recipe-id" value="${recipe_id}">
                             <input type="hidden" name="product-id" value="${product_id}">
-                            <button class = "delete-confirmation-button">Je confirme</button>
+                            <button type = "submit" class = "delete-confirmation-button">Je confirme</button>
                         </dialog>
                 </div>
                 <div class = "item-infos-grid"> <!--Grid de toutes les informations nutritionnelles-->
@@ -239,7 +239,7 @@ function placeIngredientDetails(name, imgurl  = "./assets/images/ingredient-plac
                         </div>
                     </div>
                 </div>
-                <button class="small-button soft-shadow soft-border">Voir</button>
+                <!-- <button class="small-button soft-shadow soft-border">Voir</button> -->
                 <hr class = "box-bar">
             </article>`
     recipeDetailsBox.insertAdjacentHTML("afterbegin", recipeIngredientTemplate);
