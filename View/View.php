@@ -1,1 +1,5 @@
-<?php 
+<?php namespace View;
+
+class View {
+    
+}
