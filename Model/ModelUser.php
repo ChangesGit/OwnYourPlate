@@ -11,5 +11,6 @@ class ModelUser extends Model {
 
     public function findByEmail(string $email):array | bool {
         $db = $this->model->getDb();
+        $db->prepare('SELECT u.user_id, u.')
     }
 }
