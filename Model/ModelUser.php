@@ -10,6 +10,6 @@ class ModelUser extends Model {
     private ?int $type_id;
 
     public function findByEmail(string $email):array | bool {
-
+        $db = $this->model->getDb();
     }
 }

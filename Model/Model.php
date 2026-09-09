@@ -8,4 +8,9 @@ class Model {
     public function __construct(PDO $db) {
         $this->db = $db;
     }
+
+
+    public function getDb():PDO {
+        return $this->db;
+    }
 }
