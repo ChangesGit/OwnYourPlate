@@ -12,9 +12,13 @@ class View{
         $this->viewHeader = new ViewHeader($title, $link);
     }
 
+    public function getBuffer():string {
+        return $this->buffer;
+    }
+
     //METHODS
     public function display():void {
-        echo $this->buffer;
+        echo $this->getBuffer;
     }
 
     public function displayAll():void {
