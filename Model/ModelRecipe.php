@@ -1,6 +1,7 @@
 <?php namespace Model;
 
 use Model\Model;
+use PDO;
 
 class ModelRecipe extends Model {
     private ?int $recipe_id;
@@ -45,11 +46,22 @@ class ModelRecipe extends Model {
         }
     }
 
-    public function recipeCreate(array $recipe):string {
+    public function addRecipe(array $recipe):void {
         try {
             $emailStmt = $mysqlClient->prepare('SELECT user_id FROM users WHERE email = ?');
             $emailStmt->execute([$_SESSION['email']]);
             $userId = $emailStmt->fetch()['user_id'];
+        }catch(ERROR $error) {
+            die($error->getMessage());
+        }
+    }
+
+    public function findAllIngredientsLimit(int $limit):?array{
+        try {
+            $db = $this->getDb()->prepare('SELECT p.product_id, p.name, p.imgurl, p.keywords, p.kj, p.kcal, p.proteins, p.carbs, p.fat, p.saturated_fat, p.fibers, p.salt FROM products p LIMIT ?');
+            $db->bindParam(1, $limit, PDO::PARAM_INT);
+            $db->execute();
+            return $db->fetchAll(PDO::FETCH_ASSOC);
         }catch(ERROR $error) {
             die($error->getMessage());
         }

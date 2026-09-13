@@ -5,9 +5,21 @@ use PDO;
 
 class Utils {
     public static function connect():PDO{
-        return new PDO('mysql:host=127.0.0.1:3306;dbname=mvc','root','root',[
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
+        try
+            {
+                $mysqlClient = new PDO (
+                'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=utf8',
+                DB_USERNAME,
+                DB_PASSWORD,
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+                return $mysqlClient;
+            
+            }
+            catch (EXCEPTION $error)
+            {
+                die('Erreur : ' . $error->getMessage());
+            }
+        
     }
 
     public static function passwordHash(?string $password):array{
@@ -18,7 +30,7 @@ class Utils {
     }
 
      public static function sanitize(string $data):string{
-        return htmlentities(strip_tags(stripslashes(trim($data))));
+        return trim($data);
     }
 
 }

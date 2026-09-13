@@ -2,12 +2,15 @@
 
 session_start();
 
+use Utils\Utils;
 use View\View;
+use View\ViewIndex;
 use View\ViewFooter;
 use View\ViewHeader;
 use Model\ModelRecipe;
 use Model\ModelUser;
 use Controller\ControllerUser;
+use Controller\ControllerIndex;
 
 
     // if (session_status() === PHP_SESSION_NONE) {
@@ -18,6 +21,11 @@ use Controller\ControllerUser;
     // require_once(__DIR__ . '/functions.php');
 
 
-$view = new View("test", "./styles/style.css");
-$view->displayAll();
+$utils = new Utils();
+$db = $utils->connect();
+$view = new ViewIndex("test", "./styles/style.css");
+$model = new ModelRecipe($db);
+$controller = new ControllerIndex($model, $view);
+
+$controller->render();
 ?>

@@ -1,5 +1,8 @@
 <?php namespace Controller;
 
+use Model\Model;
+use View\View;
+
 class Controller {
     private Model $model;
     private View $view;
@@ -16,6 +19,7 @@ class Controller {
 
     public function setModel(Model $newModel):self {
         $this->model = $newModel;
+        return $this;
     }
     public function getView():View {
         return $this->view;

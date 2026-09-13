@@ -16,14 +16,27 @@ class View{
         return $this->buffer;
     }
 
+    public function setBuffer(?string $buffer):self {
+        $this->buffer = $buffer;
+        return $this;
+    }
+
+    public function getData():array {
+        return $this->data;
+    }
+
+    public function setData(array $data):self {
+        $this->data = $data;
+        return $this;
+    }
     //METHODS
     public function display():void {
-        echo $this->getBuffer;
+        echo $this->buffer;
     }
 
     public function displayAll():void {
         $this->viewHeader->launchBuffer()->display();
-        $this->display();
+        $this->launchBuffer()->display();
         $this->viewFooter->launchBuffer()->display();
     }
 }

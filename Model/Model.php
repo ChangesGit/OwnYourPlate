@@ -13,4 +13,9 @@ class Model {
     public function getDb():PDO {
         return $this->db;
     }
+
+    public function setDb(PDO $db):self {
+        $this->db = $db;
+        return $this;
+    }
 }

@@ -26,9 +26,18 @@ class ViewFooter{
             </ul>
         </nav>
     </footer>
+    <script src = "./scripts/variables.js"></script>
+    <script src = "./scripts/functions.js"></script>
+    <script src="./scripts/main.js"></script>
+</body>
+</html>
 <?php
         $this->buffer = ob_get_clean();
         return $this;
+    }
+
+    public function display():void {
+        echo $this->buffer;
     }
 
 }
