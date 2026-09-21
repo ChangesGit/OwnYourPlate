@@ -43,7 +43,7 @@ class ViewHome extends View {
         </section>
         <button class = "soft-border soft-shadow large-button" type = "POST">Work In Progress</button>
         <?php if(!isset($_SESSION['name'])) {
-            echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des aliments personnalisés</a>';
+            echo '<a class = "guest-link" href="sign_up">Créez un compte pour enregistrer des aliments personnalisés</a>';
         }
         ?>
 
@@ -57,7 +57,7 @@ class ViewHome extends View {
                 </div>
                 <button id = "create-recipe-button" class = "large-button soft-border soft-shadow">Enregistrer recette</button>
                 <?php if(!isset($_SESSION['name'])) {
-                    echo '<a class = "guest-link" href="./sign_up.php">Créez un compte pour enregistrer des recettes</a>';
+                    echo '<a class = "guest-link" href="/sign_up">Créez un compte pour enregistrer des recettes</a>';
                 }
                 ?>
                 <dialog id = "create-recipe-form">

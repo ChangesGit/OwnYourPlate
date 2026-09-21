@@ -3,6 +3,7 @@
 use Controller\Controller;
 use Model\Model;
 use View\View;
+use Utils\Utils;
 
 
 class ControllerRecipe extends Controller {
@@ -23,6 +24,14 @@ class ControllerRecipe extends Controller {
     }
 
     public function renderRecipes():void {
-        $data = $this->modelRecipe->findAllRecipesOfUserId($_SESSION[])
+        if(isset($_SESSION['userId'])) {
+            $data = $this->modelRecipe->setUserId($_SESSION['userId'])->findAllRecipesOfUserId();
+            $this->getView()->setData($data);
+            $this->getView()->displayAll();
+        }else {
+            Utils::redirectToUrl('/sign_up');
+        }
+
     }
+
 }

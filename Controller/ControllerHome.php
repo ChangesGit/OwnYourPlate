@@ -64,8 +64,8 @@ class ControllerHome extends Controller {
             $_SESSION['userId'] = $data['user_id'];
             $_SESSION['name'] = $data['name'];
             $_SESSION['email'] = $data['email'];
-            $_SESSION['userType'] = $data['user_type'];
-            $_SESSION['createdAt'] = $data['created_at'];
+            // $_SESSION['userType'] = $data['user_type'];
+            // $_SESSION['createdAt'] = $data['created_at'];
 
             //6. Afficher le message de confirmation
             $this->getView()->getViewHeader()->setLoginMessage('Vous êtes bien connecté. Youpie !');

@@ -40,7 +40,11 @@ switch ($path) {
         break;
     case '/recipes':
         $view = new ViewRecipes('Recettes', './styles/style.css');
-        
+        $modelUser = new ModelUser(Utils::connect());
+        $modelRecipe = new ModelRecipe(Utils::connect());
+        $controller = new ControllerRecipe($modelUser, $modelRecipe, $view);
+        $controller->renderRecipes();
+        break;
     case '/sign_up':
         $view = new ViewSignUp("S'inscrire", './styles/style.css');
         $modelUser = new ModelUser(Utils::connect());
