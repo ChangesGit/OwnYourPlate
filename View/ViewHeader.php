@@ -6,10 +6,21 @@ class ViewHeader{
     private ?string $title;
     private ?string $link;
     private ?string $buffer = "";
+    private ?string $loginMessage = "";
 
     public function __construct(?string $title, ?string $link) {
         $this->title = $title;
         $this->link = $link;
+    }
+
+    //GETTER AND SETTER
+    public function getLoginMessage():string {
+        return $this->loginMessage;
+    }
+
+    public function setLoginMessage(string $message):self {
+        $this->loginMessage = $message;
+        return $this;
     }
 
     //METHODS
@@ -76,17 +87,29 @@ class ViewHeader{
                 </a>
             </ul>
         </nav>
-        <div>
+        <div class = "header-user">
             <img class = "header-icon" src="./assets/images/language-icon.svg" alt="Icône langue">
             <img id = "login-button" class = "header-icon header-icon-right" src="./assets/images/user-icon.svg" alt="Icône Utilisateur">
-            <?php if(!isset($_SESSION["name"])) {
-                $viewLogin = new ViewLogin();
-                $viewLogin->launchBuffer()->display();
-            }else {
-                $viewProfile = new ViewProfile();
-                $viewProfile->launchBuffer()->display();
-            }
-            ?>
+            <!-- Login -->
+            <?php if (!isset($_SESSION['name'])) : ?>
+                <div id = "login-form" class = "soft-border soft-shadow">
+                    <form action="/" method="POST">
+                        <label for="email">Email : </label>
+                        <input type="email" id="email" name="email" placeholder="you@exemple.com">
+                        <label for="password">Mot de passe : </label>
+                        <input type="password" id="password" name="password">
+                        <a href="/sign_up">Pas encore de compte ? En créer un.</a>
+                        <button name = "submitLogin" type="submit" class="small-button soft-border soft-shadow">Connexion</button>
+                        <p><?= $this->loginMessage ?></p>
+                    </form>
+                </div>
+                <!-- Si utilisateur/trice bien connectée on affiche un message de succès -->
+            <?php else : ?>
+                <p>Bonjour <?= $_SESSION['name']; ?> et bienvenue sur OwnYourPlate !<p>
+                <div id = "profile-box">
+                <a href="/log_out">Se déconnecter</a>
+                </div>
+            <?php endif; ?>
 
         </div>
     </header>

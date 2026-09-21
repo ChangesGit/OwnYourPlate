@@ -1,6 +1,7 @@
 <?php namespace Model;
 
 use Model\Model;
+use Exception;
 use PDO;
 
 class ModelRecipe extends Model {
@@ -21,7 +22,7 @@ class ModelRecipe extends Model {
             $db = $this->getDb()->prepare('SELECT r.recipes_id, r.user_id, r.user_name, r.recipe_name, r.imgurl, r.created_at, r.updated_at FROM recipes r');
             $db->execute();
             return $db->fetchAll(PDO::FETCH_ASSOC);
-        }catch(ERROR $error) {
+        }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }
@@ -31,7 +32,7 @@ class ModelRecipe extends Model {
             $db->bindParam(1, $limit, PDO::PARAM_INT);
             $db->execute();
             return $db->fetchAll(PDO::FETCH_ASSOC);
-        }catch(ERROR $error) {
+        }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }
@@ -41,7 +42,7 @@ class ModelRecipe extends Model {
             $db->bindParam(1, $recipe_id, PDO::PARAM_INT);
             $db->execute();
             return $db->fetch(PDO::FETCH_ASSOC);
-        }catch(ERROR $error) {
+        }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }
@@ -51,7 +52,7 @@ class ModelRecipe extends Model {
             $emailStmt = $mysqlClient->prepare('SELECT user_id FROM users WHERE email = ?');
             $emailStmt->execute([$_SESSION['email']]);
             $userId = $emailStmt->fetch()['user_id'];
-        }catch(ERROR $error) {
+        }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }
@@ -62,7 +63,18 @@ class ModelRecipe extends Model {
             $db->bindParam(1, $limit, PDO::PARAM_INT);
             $db->execute();
             return $db->fetchAll(PDO::FETCH_ASSOC);
-        }catch(ERROR $error) {
+        }catch(\Throwable $error) {
+            die($error->getMessage());
+        }
+    }
+
+    public function findAllRecipesOfUserId(int $userId):?array {
+        try {
+            $db = $this->getDb()->prepare('SELECT r.recipe_id, r.user_id, r.user_name, r.recipe_name, r.imgurl, r.created_at, r.updated_at FROM recipes r WHERE r.user_id = ?');
+            $db->bindParam(1, $user_id, PDO::PARAM_INT);
+            $db->execute();
+            return $db->fetchAll(PDO::FETCH_ASSOC);
+        }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }

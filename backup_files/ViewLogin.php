@@ -4,6 +4,8 @@ use View\View;
 
 class ViewLogin{
     private ?string $buffer = "";
+    private ?string $message = "";
+    
 
 
     //METHODS
@@ -20,7 +22,8 @@ class ViewLogin{
             <label for="password">Mot de passe : </label>
             <input type="password" id="password" name="password">
             <a href="./sign_up.php">Pas encore de compte ? En créer un.</a>
-            <button type="submit" class="small-button soft-border soft-shadow">Connexion</button>
+            <button name = "submitLogin" type="submit" class="small-button soft-border soft-shadow">Connexion</button>
+            <p><?= $this->message ?></p>
         </form>
     </div>
     <!-- Si utilisateur/trice bien connectée on affiche un message de succès -->

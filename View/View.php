@@ -29,6 +29,16 @@ class View{
         $this->data = $data;
         return $this;
     }
+    public function getViewHeader():ViewHeader {
+        return $this->viewHeader;
+    }
+
+    public function setViewHeader(ViewHeader $viewHeader):self {
+        $this->viewHeader = $viewHeader;
+        return $this;
+    }
+    
+
     //METHODS
     public function display():void {
         echo $this->buffer;

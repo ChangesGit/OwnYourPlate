@@ -297,3 +297,11 @@ searchButton.addEventListener('click', (e) => {
     document.activeElement.blur();
     e.preventDefault();
 })
+
+
+const loginButton = document.querySelector('#login-button');
+const loginForm = document.querySelector('#login-form');
+
+loginButton.addEventListener('click', () => {
+    loginForm.classList.toggle('active');
+});

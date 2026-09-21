@@ -1,4 +1,0 @@
-<?php require_once __DIR__."/functions.php";
-session_destroy();
-redirectToUrl('./index.php');
-?>

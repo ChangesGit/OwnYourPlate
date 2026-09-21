@@ -2,7 +2,7 @@
 
 use View\View;
 
-class ViewIndex extends View {
+class ViewHome extends View {
 
 
 

@@ -30,7 +30,17 @@ class Utils {
     }
 
      public static function sanitize(string $data):string{
-        return trim($data);
+        return htmlentities(htmlspecialchars(strip_tags(trim($input))));
+    }
+
+    public static function redirectToUrl(string $url):void {
+        header("Location: {$url}");
+        exit();
+    }
+
+    public static function logOut():void {
+        session_destroy();
+        Utils::redirectToUrl('/');
     }
 
 }

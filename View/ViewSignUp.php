@@ -1,25 +1,27 @@
-<?php
-    require_once(__DIR__ . '/db_connect.php');
-    require_once(__DIR__ . '/variables.php');
-    require_once(__DIR__ . '/functions.php');
+<?php namespace View;
 
+use View\View;
+
+class ViewSignUp extends View {
+    private ?string $message = "";
+
+
+    public function getMessage():string {
+        return $this->message;
+    }
+
+    public function setMessage(string $message):self {
+        $this->message = $message;
+        return $this;
+    }
+    //METHODS
+    public function launchBuffer():self {
+        ob_start();
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OwnYourPlate - S'inscrire</title>
-    <link rel="stylesheet" href="./styles/style.css">
-    <link rel="icon" type="image/x-icon" href="./assets/images/ico.svg">
-</head>
-<body>
-    <?php require_once __DIR__.'/header.php'; ?>
     <main>
         <h1>Créez un compte</h1>
         <section id = "sign-up-form" class = "soft-border soft-radius">
-            <form action="./submit_sign_up.php" method="POST">
+            <form action="/sign_up" method="POST">
                 <label for="name">Nom utilisateur : </label>
                 <input type="text" id="name" name="name" placeholder="superRoxxor99" required>
                 <label for="email">Email : </label>
@@ -28,10 +30,13 @@
                 <input type="password" id="password" name="password" placeholder="p@ssw0rd" required>
                 <label for="confirm-password">Confirmer votre mot de passe : </label>
                 <input type="password" name="confirm-password" id="confirm-password" placeholder="p@ssw0rd" required>
-                <button type="submit" class="small-button soft-border soft-shadow">Envoyer</button>
+                <button type="submit" name = "submitSignUp" class="small-button soft-border soft-shadow">Envoyer</button>
+                <?= $this->message ?>
             </form>
         </section>
     </main>
-    <?php require_once __DIR__.'/footer.php'; ?>
-</body>
-</html>
+<?php
+        $this->setBuffer(ob_get_clean());
+        return $this;
+    }
+}

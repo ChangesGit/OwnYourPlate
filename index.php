@@ -4,13 +4,16 @@ session_start();
 
 use Utils\Utils;
 use View\View;
-use View\ViewIndex;
+use View\ViewHome;
 use View\ViewFooter;
 use View\ViewHeader;
+use View\ViewRecipes;
+use View\ViewSignUp;
 use Model\ModelRecipe;
 use Model\ModelUser;
 use Controller\ControllerUser;
-use Controller\ControllerIndex;
+use Controller\ControllerHome;
+use Controller\ControllerRecipe;
 
 
     // if (session_status() === PHP_SESSION_NONE) {
@@ -29,22 +32,37 @@ $path = isset($url['path']) ? $url['path'] : '/';
 
 switch ($path) {
     case '/':
-        $view = new ViewIndex('test','./styles/style.css');
-        $model = new ModelRecipe(Utils::connect());
-        $controller = new ControllerIndex($model, $view);
-        $controller->render();
+        $view = new ViewHome('test','./styles/style.css');
+        $modelUser = new ModelUser(Utils::connect());
+        $modelRecipe = new ModelRecipe(Utils::connect());
+        $controller = new ControllerHome($modelUser, $modelRecipe, $view);
+        $controller->renderHome();
         break;
+    case '/recipes':
+        $view = new ViewRecipes('Recettes', './styles/style.css');
         
+    case '/sign_up':
+        $view = new ViewSignUp("S'inscrire", './styles/style.css');
+        $modelUser = new ModelUser(Utils::connect());
+        $controller = new ControllerUser($modelUser, $view);
+        $controller->renderSignUp();
+        break;
+    case '/sign_in':
+        
+        break;
+    case '/log_out':
+        $view = new ViewHome('OwnYourPlate', './styles/style.css');
+        $modelUser = new ModelUser(Utils::connect());
+        $modelRecipe = new ModelRecipe(Utils::connect());
+        $controller = new ControllerHome($modelUser, $modelRecipe, $view);
+        $controller->logOut();
+        
+        break;
     default:
         echo "erreur 404";
         break;
 }
 
 
-$db = Utils::connect();
-$view = new ViewIndex("test", "./styles/style.css");
-$model = new ModelRecipe($db);
-$controller = new ControllerIndex($model, $view);
 
-$controller->render();
 ?>
