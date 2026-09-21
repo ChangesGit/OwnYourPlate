@@ -43,4 +43,8 @@ class Utils {
         Utils::redirectToUrl('/');
     }
 
+    public static function escapeHtml(string|int|float|null $data):string {
+        return htmlspecialchars((string) $data, ENT_QUOTES, 'UTF-8');
+    }
+
 }

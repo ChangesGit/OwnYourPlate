@@ -32,6 +32,22 @@ class ControllerRecipe extends Controller {
             Utils::redirectToUrl('/sign_up');
         }
 
+        
+    }
+
+    public function searchFunction() {
+        $userInput = $_GET['q'] ?? '';
+
+        //TODO : Ajouter la recherche sur les keywords en plus du nom
+        $this->modelRecipe->findSearchedInput($userInput);
+    }
+
+    public function addRecipe() {
+        $rawData = file_get_contents('php://input');
+        $jsonDecode = json_decode($rawData, true);
+        $products = $jsonDecode[0];
+        $recipeName = $jsonDecode[1];
+        $this->modelRecipe->addRecipe($products, $recipeName);
     }
 
 }

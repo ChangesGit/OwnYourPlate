@@ -14,19 +14,20 @@ const createRecipeButton = document.getElementById('create-recipe-button');
 let addButton = document.querySelectorAll('.result-product .small-button');
 
 const minusPlusAmount = 50;
+const searchBar = document.getElementById('searchBar');
 
 
 // -------------------------------------------------------------------------
 
 
 // On affiche les 10 premiers résultats de la BDD en initialisation
-(async () => {
-    const searchBar = document.getElementById('searchBar');
-    results = await searchFunction(searchBar);
-    results.forEach(product => {
-    placeArticleSearchResult(product['imgurl'], '', product['name'], product['kj'], product['kcal'], product['proteins'], product['carbs']);
-});
-})();
+// (async () => {
+//     
+//     results = await searchFunction(searchBar);
+//     results.forEach(product => {
+//     placeArticleSearchResult(product['imgurl'], '', product['name'], product['kj'], product['kcal'], product['proteins'], product['carbs']);
+// });
+// })();
 
 
 

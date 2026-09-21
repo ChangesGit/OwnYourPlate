@@ -295,13 +295,13 @@ function totalDisplay(products) {
 
 async function searchFunction(searchBar){
     const userInput = searchBar.value.toLowerCase();
-    const response = await fetch('./search.php?q='+encodeURIComponent(userInput));
+    const response = await fetch('/search?q='+encodeURIComponent(userInput));
     const results = await response.json();
     return results;
 }
 
 async function createRecipe(products) {
-    const response = await fetch('./recipe_create.php', {
+    const response = await fetch('/recipe_create', {
         method: "POST",
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify(products)

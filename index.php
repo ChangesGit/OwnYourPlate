@@ -60,7 +60,20 @@ switch ($path) {
         $modelRecipe = new ModelRecipe(Utils::connect());
         $controller = new ControllerHome($modelUser, $modelRecipe, $view);
         $controller->logOut();
-        
+        break;
+    case '/search':
+        $view = new ViewHome('test','./styles/style.css');
+        $modelUser = new ModelUser(Utils::connect());
+        $modelRecipe = new ModelRecipe(Utils::connect());
+        $controller = new ControllerRecipe($modelUser, $modelRecipe, $view);
+        $controller->searchFunction();
+        break;
+    case '/recipe_create':
+        $view = new ViewHome('test','./styles/style.css');
+        $modelUser = new ModelUser(Utils::connect());
+        $modelRecipe = new ModelRecipe(Utils::connect());
+        $controller = new ControllerRecipe($modelUser, $modelRecipe, $view);
+        $controller->addRecipe();
         break;
     default:
         echo "erreur 404";

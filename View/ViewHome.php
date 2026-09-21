@@ -62,7 +62,7 @@ class ViewHome extends View {
                 ?>
                 <dialog id = "create-recipe-form">
                     <button>x</button>
-                    <form  action = "./recipe_create.php" method="POST">
+                    <form  action = "/recipe_create" method="POST">
                         <label for="recipe-name">Nom de la recette :</label>
                         <input id = "recipe-name" type="text" placeholder="Blanquette de veau">
                         <button id = "send-recipe-button" class = "small-button soft-shadow soft-border" type = "button">Enregistrer</button>

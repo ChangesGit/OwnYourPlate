@@ -46,40 +46,22 @@ class ModelRecipe extends Model {
         $this->recipeName = $recipeName;
         return $this;
     }
-
-    /**
-     * Get the value of imgurl
-     */ 
     public function getImgurl()
     {
         return $this->imgurl;
     }
 
-    /**
-     * Set the value of imgurl
-     *
-     * @return  self
-     */ 
     public function setImgurl($imgurl)
     {
         $this->imgurl = $imgurl;
 
         return $this;
     }
-
-    /**
-     * Get the value of createdAt
-     */ 
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
-    /**
-     * Set the value of createdAt
-     *
-     * @return  self
-     */ 
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -87,19 +69,11 @@ class ModelRecipe extends Model {
         return $this;
     }
 
-    /**
-     * Get the value of updatedAt
-     */ 
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
-    /**
-     * Set the value of updatedAt
-     *
-     * @return  self
-     */ 
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
@@ -138,11 +112,21 @@ class ModelRecipe extends Model {
         }
     }
 
-    public function addRecipe(array $recipe):void {
+    public function addRecipe(array $products, string $recipeName):void {
         try {
-            $emailStmt = $this->getDb()->prepare('SELECT user_id FROM users WHERE email = ?');
-            $emailStmt->execute([$_SESSION['email']]);
-            $userId = $emailStmt->fetch()['user_id'];
+            if(isset($_SESSION['userId'])) {
+                $userId = $_SESSION['userId'];
+                $recipeStmt = $this->getDb()->prepare('INSERT INTO recipes(user_id, `user_name`, `recipe_name`) VALUES(?, ?, ?)');
+                $recipeStmt->execute([$userId, $_SESSION['name'], $recipeName]);
+
+                $recipeId = $this->getDb()->lastInsertId();
+
+                $productInsertStmt = $this->getDb()->prepare('INSERT INTO to_compose(recipe_id, product_id, recipe_name, product_name, quantity) VALUES (?, ?, ?, ?, ?)');
+
+                foreach($products as $product) {
+                    $productInsertStmt->execute([$recipeId, $product['product_id'], $recipeName, $product['name'], $product['grams']]);
+                    }
+            }
         }catch(\Throwable $error) {
             die($error->getMessage());
         }
@@ -161,14 +145,69 @@ class ModelRecipe extends Model {
 
     public function findAllRecipesOfUserId():array | bool {
         try {
-            $db = $this->getDb()->prepare('SELECT r.recipe_id, r.user_id, r.user_name, r.recipe_name, r.imgurl, r.created_at, r.updated_at FROM recipes r WHERE r.user_id = ?');
-            $db->bindParam(1, $this->userId, PDO::PARAM_INT);
+            $db = $this->getDb()->prepare(
+                'SELECT
+                    r.recipe_id,
+                    r.recipe_name,
+                    r.imgurl,
+                    r.created_at,
+                    r.updated_at,
+
+                    COUNT(tc.product_id) AS ingredient_count,
+                    COALESCE(SUM(tc.quantity), 0) AS total_grams,
+
+                    COALESCE(SUM(p.kj * tc.quantity / 100), 0) AS total_kj,
+                    COALESCE(SUM(p.kcal * tc.quantity / 100), 0) AS total_kcal,
+                    COALESCE(SUM(p.proteins * tc.quantity / 100), 0) AS total_proteins,
+                    COALESCE(SUM(p.carbs * tc.quantity / 100), 0) AS total_carbs,
+                    COALESCE(SUM(p.fat * tc.quantity / 100), 0) AS total_fat,
+                    COALESCE(SUM(p.saturated_fat * tc.quantity / 100), 0) AS total_saturated_fat,
+                    COALESCE(SUM(p.fibers * tc.quantity / 100), 0) AS total_fibers,
+                    COALESCE(SUM(p.salt * tc.quantity / 100), 0) AS total_salt
+
+                FROM recipes r
+
+                LEFT JOIN to_compose tc
+                    ON tc.recipe_id = r.recipe_id
+
+                LEFT JOIN products p
+                    ON p.product_id = tc.product_id
+
+                WHERE r.user_id = ?
+
+                GROUP BY
+                    r.recipe_id,
+                    r.recipe_name,
+                    r.imgurl,
+                    r.created_at,
+                    r.updated_at
+
+                ORDER BY r.updated_at DESC'
+            );
+
+            $db->bindValue(1, $this->userId, PDO::PARAM_INT);
             $db->execute();
             return $db->fetchAll(PDO::FETCH_ASSOC);
         }catch(\Throwable $error) {
             die($error->getMessage());
         }
     }
+    // public function findAllRecipesOfUserId():array | bool {
+    //     try {
+    //         $db = $this->getDb()->prepare('SELECT r.recipe_id, r.user_id, r.user_name, r.recipe_name, r.imgurl, r.created_at, r.updated_at FROM recipes r WHERE r.user_id = ?');
+    //         $db->bindParam(1, $this->userId, PDO::PARAM_INT);
+    //         $db->execute();
+    //         return $db->fetchAll(PDO::FETCH_ASSOC);
+    //     }catch(\Throwable $error) {
+    //         die($error->getMessage());
+    //     }
+    // }
 
-    
+
+    public function findSearchedInput(string $userInput): void {
+        $stmt = $this->getDb()->prepare('SELECT product_id, `name`, imgurl, kj, kcal, proteins, carbs, fat, saturated_fat, fibers, salt FROM products WHERE `name` LIKE ? OR keywords LIKE ? LIMIT 10');
+        $stmt->execute([$userInput."%", $userInput."%"]);
+
+        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
 }
