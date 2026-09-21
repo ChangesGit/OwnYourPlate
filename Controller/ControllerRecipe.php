@@ -35,11 +35,10 @@ class ControllerRecipe extends Controller {
         
     }
 
-    public function searchFunction() {
+    public function searchFunction():void {
         $userInput = $_GET['q'] ?? '';
-
-        //TODO : Ajouter la recherche sur les keywords en plus du nom
-        $this->modelRecipe->findSearchedInput($userInput);
+        $results = $this->modelRecipe->findSearchedInput($userInput);
+        echo json_encode($results);
     }
 
     public function addRecipe() {

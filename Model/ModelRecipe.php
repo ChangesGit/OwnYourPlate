@@ -117,7 +117,11 @@ class ModelRecipe extends Model {
             if(isset($_SESSION['userId'])) {
                 $userId = $_SESSION['userId'];
                 $recipeStmt = $this->getDb()->prepare('INSERT INTO recipes(user_id, `user_name`, `recipe_name`) VALUES(?, ?, ?)');
-                $recipeStmt->execute([$userId, $_SESSION['name'], $recipeName]);
+                $recipeStmt->bindParam(1, $userId, PDO::PARAM_INT);
+                $recipeStmt->bindParam(2, $_SESSION['name'], PDO::PARAM_STR);
+                $recipeStmt->bindParam(3, $recipeName, PDO::PARAM_STR);
+
+                $recipeStmt->execute();
 
                 $recipeId = $this->getDb()->lastInsertId();
 
@@ -204,10 +208,16 @@ class ModelRecipe extends Model {
     // }
 
 
-    public function findSearchedInput(string $userInput): void {
-        $stmt = $this->getDb()->prepare('SELECT product_id, `name`, imgurl, kj, kcal, proteins, carbs, fat, saturated_fat, fibers, salt FROM products WHERE `name` LIKE ? OR keywords LIKE ? LIMIT 10');
-        $stmt->execute([$userInput."%", $userInput."%"]);
-
-        echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+    public function findSearchedInput(string $userInput, int $limit = 10):array | bool {
+        try {
+            $db = $this->getDb()->prepare('SELECT product_id, `name`, imgurl, kj, kcal, proteins, carbs, fat, saturated_fat, fibers, salt FROM products WHERE `name` LIKE ? OR keywords LIKE ? LIMIT ?');
+            $db->bindValue(1, $userInput . '%', PDO::PARAM_STR);
+            $db->bindValue(2, $userInput . '%', PDO::PARAM_STR);
+            $db->bindValue(3, $limit, PDO::PARAM_INT);
+            $db->execute();
+        return $db->fetchAll(PDO::FETCH_ASSOC);
+        }catch(\Throwable $error) {
+            die($error->getMessage());
+        }
     }
 }

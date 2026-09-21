@@ -15,19 +15,8 @@ use Controller\ControllerUser;
 use Controller\ControllerHome;
 use Controller\ControllerRecipe;
 
-
-    // if (session_status() === PHP_SESSION_NONE) {
-    //     session_start();
-    // };
-    // require_once(__DIR__ . '/db_connect.php');
-    // require_once(__DIR__ . '/variables.php');
-    // require_once(__DIR__ . '/functions.php');
-
-
-
 $url = parse_url($_SERVER['REQUEST_URI']);
 $path = isset($url['path']) ? $url['path'] : '/';
-
 
 
 switch ($path) {
@@ -50,9 +39,6 @@ switch ($path) {
         $modelUser = new ModelUser(Utils::connect());
         $controller = new ControllerUser($modelUser, $view);
         $controller->renderSignUp();
-        break;
-    case '/sign_in':
-        
         break;
     case '/log_out':
         $view = new ViewHome('OwnYourPlate', './styles/style.css');

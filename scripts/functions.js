@@ -295,7 +295,15 @@ function totalDisplay(products) {
 
 async function searchFunction(searchBar){
     const userInput = searchBar.value.toLowerCase();
-    const response = await fetch('/search?q='+encodeURIComponent(userInput));
+    const response = await fetch('/search?q='+encodeURIComponent(userInput), {
+        method: "GET",
+        headers: {
+            Accept: 'application/json'
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+    }
     const results = await response.json();
     return results;
 }
